@@ -1,0 +1,11 @@
+<MessageOfTheDayPictureLInk>
+https://i.imgur.com/xDYy2WG.png
+https://i.imgur.com/d9iQBoe.png
+<StartVersions>
+7,15
+https://drive.google.com/file/d/1JMbppwm0S1Bl6KQFKdOilSzNdf_PPPQg/view?usp=sharing
+88355
+<EndVersions>
+764218599 
+2086400
+0.83
