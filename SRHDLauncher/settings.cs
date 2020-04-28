@@ -355,7 +355,7 @@ namespace SRHDLauncher
 
 		private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
 		{
-			ReleaseCapture();
+			ReleaseCapture();d
 			PostMessage(base.Handle, 274u, 61458u, 0u);
 		}
 
