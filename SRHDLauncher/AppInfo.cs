@@ -8,8 +8,8 @@ namespace SRHDLauncher
 		public const string ENG_CHANGELOG = "https://drive.google.com/file/d/1Z91zQLaUgWMbudO4m8ucQ0DFzeRA2fXW/view?usp=sharing";
 
 		public const string LAUNCHER_VERSION = "0.831";
-		
-		public const string APP_ZIP_FILE_LINK = "https://drive.google.com/file/d/1T3wLIoENa2oyPFKbmghWckgqQWHdnSw6/view?usp=sharing"; //"https://drive.google.com/file/d/19rEn2Www8c1_2vS9piW2R2a0Ee3RmDdu/view?usp=sharing";
+
+		public const string APP_ZIP_FILE_LINK = "https://drive.google.com/file/d/19jdjTzT_usxbTvb8EFvw00xKknC_1KE5/view?usp=sharing";
 
 		public const string APP_INI_LINK_FILE = "https://drive.google.com/file/d/1jDScpEkq-mybtv4SNtL-rjyE-9wM4Uos/view?usp=sharing";
 
@@ -58,14 +58,21 @@ namespace SRHDLauncher
 
 		public static string[] laucnherUpdateLogEng = 
 		{
-			"Hotfix patch dated 21.04.2020 is avaliable for download",
+			"Hotfix patch dated 28.04.2020 is avaliable for download",
+			"Code has been optimised a bit",
+			"Update code has been reworked and now works a differently.",
+			"Some graphics changes",
 			"Updated localization files"
 		};
 
 		public static string[] laucnherUpdateLogRu = 
 		{
-			"Хотфикс от 21.04.2020 доступен для скачки",
-			"Updated localization files"
+			"Хотфикс от 28.04.2020 доступен для скачки",
+			"Код был несколько оптимизирован",
+			"Код для обновления был переработан и работает несколько иначе",
+			"Графические исправления",
+			"Updated localization files",
+
 		};
 	}
 }

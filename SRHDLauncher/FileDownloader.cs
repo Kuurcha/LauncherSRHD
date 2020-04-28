@@ -203,7 +203,14 @@ namespace SRHDLauncher
 				{
 					currentUpdateForm.progressBar.CustomText = currentMessage + "   " + num3 + "MB of " + num4 + "MB";
 				}
-		     currentUpdateForm.progressBar.Value = Math.Min(int.Parse(Math.Truncate(d).ToString()), 100);
+				
+				currentUpdateForm.progressBar.Invoke((MethodInvoker)delegate {
+					// Running on the UI thread
+				
+					currentUpdateForm.progressBar.Value = Math.Min(int.Parse(Math.Truncate(d).ToString()), 100);
+				});
+				
+		     
 			}
 		}
 

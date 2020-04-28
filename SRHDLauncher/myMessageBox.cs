@@ -155,7 +155,7 @@ namespace SRHDLauncher
 		{
 			okBtn.Image = Resources._2OkD;
 		}
-
+		
 		private void degenerateChoice_MouseUp(object sender, MouseEventArgs e)
 		{
 			FormsFunctions.PlayInfoButtonSound();

@@ -1041,6 +1041,7 @@ namespace SRHDLauncher
 				{
 					updateForm = new update(path, updateRequired, totalBytes, this, isModInstalled, info,  reisntall, SR1HD);
 				}
+				
 			}	
 		}
 		public void updLauncher()

@@ -59,7 +59,6 @@ namespace SRHDLauncher
 		private PictureBox minimizeWindow;
 
 		private PictureBox closeWindow;
-
 		public ProgressBar temp;
 
 		public string SRHD1Url
@@ -118,7 +117,12 @@ namespace SRHDLauncher
 			}
 			Fonts.AddFontFile(text);
 		}
+		private delegate void SetControlPropertyThreadSafeDelegate(
+		Control control,
+		string propertyName,
+		object propertyValue);
 
+		
 		public update(string executePath, bool updateRequired, long totalBytes, mainform form, bool isModInstalled, string[] info,  bool reinstall, bool downloadSR1HDMode)
 		{
 			//Присваивает все переменные
@@ -135,8 +139,10 @@ namespace SRHDLauncher
 			progressBar = new CustomProgressBar();
 			progressBar.Size = new Size(775, 19);
 			progressBar.Location = new Point(121, 544);
+			progressBar.DisplayStyle = ProgressBarDisplayText.CustomTex;
 			base.Controls.Add(progressBar);
 			InitializeComponent();
+			
 		    //Добавляем некотрые кастомные события 
 			base.MouseDown += settings_MouseDown;
 			base.MouseDown += pictureBox1_MouseDown;
@@ -171,6 +177,7 @@ namespace SRHDLauncher
 
 			//Запуск механизма обновления
 			updateAppPreparation();
+			
 			
 		}
 		public bool flagToContinue = false;
@@ -233,8 +240,10 @@ namespace SRHDLauncher
 				if (updateRequired)
 				{
 					updateInProgress = true; //Переменная, которая отвечает за то, при нажатии давать ли окошко о прерывании (и прерывать ли потоки) во время обновления.
-					if (isModInstalled && !reinstall) downloadAllPatches();
+					if (isModInstalled && !reinstall) downloadAllPatches(false);
 					else callWholeUpdate();
+					degenerateChoice.Enabled = true;
+					degenerateChoice.Image = SRHDLauncher.Properties.Resources._2OkA;
 				}
 			}
 		}
@@ -419,7 +428,7 @@ namespace SRHDLauncher
 			if (!abortEtoGreh)
 			{
 				archiveBegun = true;
-				ZipArchiveExtensions.Unpack(tempArchivePath, executePath, this, form);
+				ZipArchiveExtensions.Unpack(tempArchivePath, executePath, this, form, true);
 			}
 			else
 			{
@@ -473,25 +482,42 @@ namespace SRHDLauncher
 			if (!abortEtoGreh)
 			{
 				archiveBegun = true;
-				ZipArchiveExtensions.Unpack(tempZipFolder, ModsFolder, this, form);
+				ZipArchiveExtensions.Unpack(tempZipFolder, SRHDFolder, this, form, false);
 				Thread.Sleep(50);
 			}
 			else File.Delete(tempZipFolder);
 		}
 
-		public void downloadAllPatches()
+		public void downloadAllPatches(bool allUpdate)
 		{
+			form.updateRequired = false;
+			string versionPath = StringProcessing.StepUp(form.pathToFile) + "\\Mods\\version.txt";
 			double num = 7.0;
 			List<string> list = new List<string>();
-			using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SRHDLauncher.launсherHashСopy.txt"))
+			float currentVersion = 7.0f;
+			
+			if (!allUpdate)
 			{
-				TextReader textReader = new StreamReader(stream);
-				string item;
-				while ((item = textReader.ReadLine()) != null)
+				using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SRHDLauncher.launсherHashСopy.txt"))
 				{
-					list.Add(item);
+					TextReader textReader = new StreamReader(stream);
+					string item;
+					while ((item = textReader.ReadLine()) != null)
+					{
+						list.Add(item);
+					}
 				}
+				string ln = "";
+				using (StreamReader file = new StreamReader(versionPath))
+				{
+					int counter = 0;
+					ln = file.ReadLine();
+					file.Close();
+				}
+				float.TryParse(ln, out currentVersion);
 			}
+			
+			
 			string[] array = list.ToArray();
 			for (int i = 1; i < info.Length - 1; i += 3)
 			{
@@ -499,46 +525,33 @@ namespace SRHDLauncher
 				{
 					float result = 0f;
 					long result2 = 1L;
+					
 					bool flag = float.TryParse(info[i], out result);
 					bool flag2 = long.TryParse(info[i + 2], out result2);
-					if (flag && flag2 && mainform.lastDetected < (double)result)
+					if (flag && flag2 && currentVersion < (double)result)
 					{
-						string message = "";
-						if (form.Lang == "ru")
-						{
-							message = "     Downloading update v" + num;
-						}
-						if (form.Lang == "eng")
-						{
-							message = "    Скачивается обновление v" + num;
-						}
-						string text = StringProcessing.StepUp(executePath) + "\\Mods\\" + info[i] + ".zip";
-						FileDownloader.DownloadFileFromURLToPath(info[i + 1], text, callProgressBar: true, this, form, result2, message);
-						mainform.lastDetected = result;
-						ZipArchiveExtensions.Unpack(text, StringProcessing.StepUp(executePath) + "\\Mods", this, form);
 						string path = StringProcessing.StepUp(form.pathToFile) + "\\Mods\\version.txt";
 						num = double.Parse(info[i]);
 						if (File.Exists(path))
 						{
 							File.Delete(path);
-							using (StreamWriter streamWriter = File.CreateText(path))
+						}
+
+						using (StreamWriter streamWriter = File.CreateText(path))
 							{
 								streamWriter.WriteLine(info[i]);
 							}
-						}
+						
+						string text = StringProcessing.StepUp(executePath) + "\\Mods\\" + info[i] + ".zip";
+						string message = "";
+						FileDownloader.DownloadFileFromURLToPath(info[i + 1], text, callProgressBar: true, this, form, result2, message);
+						ZipArchiveExtensions.Unpack(text, StringProcessing.StepUp(executePath) + "\\Mods", this, form, true);
 					}
 				}
 			
 			}
 			string text2 = "downloadAllPatches";
-			if (form.Lang == "ru")
-			{
-				text2 = "Обновлено до версии " + num;
-			}
-			if (form.Lang == "eng")
-			{
-				text2 = "Updated up to " + num;
-			}
+
 			FileDownloader.DownloadFileFromURLToPath("https://drive.google.com/file/d/1xkFP-LnD6pa2SWfY55b1y3vSFpeUf2mm/view?usp=sharing", StringProcessing.StepUp(form.pathToFile) + "\\changeLogRu.txt", callProgressBar: false, this, form, "");
 			FileDownloader.DownloadFileFromURLToPath("https://drive.google.com/file/d/1Z91zQLaUgWMbudO4m8ucQ0DFzeRA2fXW/view?usp=sharing", StringProcessing.StepUp(form.pathToFile) + "\\changeLogEng.txt", callProgressBar: false, this, form, "");
 			if (form.Lang == "ru")
@@ -549,7 +562,7 @@ namespace SRHDLauncher
 			{
 				Process.Start(StringProcessing.StepUp(form.pathToFile) + "\\changeLogEng.txt");
 			}
-	
+			MessageBox.Show(StringProcessing.getMessage(form.Lang, " Мод установлен.", "  Mod installed. "));
 		}
 
 		private void update_Shown(object sender, EventArgs e)
@@ -695,6 +708,11 @@ namespace SRHDLauncher
             ((System.ComponentModel.ISupportInitialize)(this.degenerateChoice)).EndInit();
             this.ResumeLayout(false);
 
+		}
+
+		private void costyl_CheckedChanged(object sender, EventArgs e)
+		{
+		
 		}
 	}
 }
