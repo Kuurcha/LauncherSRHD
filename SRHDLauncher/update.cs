@@ -119,38 +119,44 @@ namespace SRHDLauncher
 			Fonts.AddFontFile(text);
 		}
 
-		public update(string executePath, bool updateRequired, long totalBytes, mainform form, bool isModInstalled, string[] info, string message, bool reinstall, bool downloadSR1HDMode)
+		public update(string executePath, bool updateRequired, long totalBytes, mainform form, bool isModInstalled, string[] info,  bool reinstall, bool downloadSR1HDMode)
 		{
+			//Присваивает все переменные
 			bool sizeDiffers = false;
 			string[] array = null;
-			string imagePathRu = "";
-			string imagePathEng = "";
 			this.reinstall = reinstall;
-		
 			this.downloadSR1HDMode = downloadSR1HDMode;
 			this.info = info;
 			this.updateRequired = updateRequired;
 			this.form = form;
 			this.executePath = executePath;
 			this.isModInstalled = isModInstalled;
+			//Назначаемсвойства прогресс бара
 			progressBar = new CustomProgressBar();
 			progressBar.Size = new Size(775, 19);
 			progressBar.Location = new Point(121, 544);
-			progressBar.DisplayStyle = ProgressBarDisplayText.CustomText;
 			base.Controls.Add(progressBar);
 			InitializeComponent();
-
-			degenerateChoice.Enabled = false;
-			degenerateChoice.Image = SRHDLauncher.Properties.Resources._2OkD;
-			if (!downloadSR1HDMode)
-			{
-				updateRequired = (reinstall || BoolConfirmation.checkIfUpdateIsRequired(executePath, "https://drive.google.com/file/d/1jDScpEkq-mybtv4SNtL-rjyE-9wM4Uos/view?usp=sharing", ref message, this, form, ref totalBytes, ref sizeDiffers, ref array, ref imagePathRu, ref imagePathEng));
-			}
-			form.changeEnabledStatusButtons();
+		    //Добавляем некотрые кастомные события 
 			base.MouseDown += settings_MouseDown;
 			base.MouseDown += pictureBox1_MouseDown;
 			base.MouseDown += pictureBox1_MouseDown;
 			base.Closing += OnClosing;
+			//Меняем визуальную и функциоальную составляющую кнопки на выключенную
+			degenerateChoice.Enabled = false;
+			degenerateChoice.Image = SRHDLauncher.Properties.Resources._2OkD;
+			//Проверка на наличие обновлений? Нужна ли?
+			if (!downloadSR1HDMode)
+			{
+				string message = "";
+				updateRequired = (reinstall || BoolConfirmation.checkIfUpdateIsRequired(executePath, "https://drive.google.com/file/d/1jDScpEkq-mybtv4SNtL-rjyE-9wM4Uos/view?usp=sharing", ref message, this, form, ref totalBytes, ref sizeDiffers, ref array));
+			}
+			//Выключение лишних кнопок в основной форме, дабы не было дубликатов
+			form.changeEnabledStatusButtons();
+			form.checkUpdates.Enabled = false;
+			form.checkUpdates.Image = SRHDLauncher.Properties.Resources._2SettingsD;
+
+			//Установка соотвествующего языка в форме
 			if (form.Lang == "ru")
 			{
 				setRu();
@@ -162,12 +168,16 @@ namespace SRHDLauncher
 				progressBar.CustomText = "Initialising...";
 			}
 			Show();
-			form.checkUpdates.Enabled = false;
-		    form.checkUpdates.Image = SRHDLauncher.Properties.Resources._2SettingsD;
-			updateAppUpperLevel();
+
+			//Запуск механизма обновления
+			updateAppPreparation();
 			
 		}
 		public bool flagToContinue = false;
+		/// <summary>
+		/// Метод, который занимает поток до тех пор, пока что-либо происходит, но позволяет остальному приложению не зависать в хламиноз
+		/// </summary>
+		/// <param name="client"></param>
 		public void RepeatUntilBusy(WebClient client)
 		{
 			if (client == null)
@@ -182,16 +192,52 @@ namespace SRHDLauncher
 				}
 				Application.DoEvents();
 			}
-			
-			if(flagToContinue)
-			{
-				Thread.Sleep(50);
-				downloadAllPatches();
-				flagToContinue = false;
-			}
-		
 		}
+		public void updateAppPreparation()
+		{
+			///В случае, если выбрана была скачка SR1HD - качает ее и пропускает все остальное.
+			if (downloadSR1HDMode)
+			{
+				callDownloadSR1HD();
+				return;
+			}
+			//Установка необходимых параметров для дальнейшего использования. UpdateBytes - максимум размера файла.
+			string message = ""; //Не используется, но необходимый параметр для метода
+			long updateBytes = 1L;
+			bool sizeDiffers = false; //Ваще не помню для чего, уточнить.
+			string[] array = null;
+			updateRequired = (reinstall || BoolConfirmation.checkIfUpdateIsRequired(form.pathToFile, "https://drive.google.com/file/d/1jDScpEkq-mybtv4SNtL-rjyE-9wM4Uos/view?usp=sharing", ref message, this, form, ref updateBytes, ref sizeDiffers, ref array));
+			if (updateRequired)
+			{
 
+				string path = StringProcessing.StepUp(form.pathToFile) + "\\Mods\\version.txt";
+				string path2 = StringProcessing.StepUp(form.pathToFile) + "\\Mods\\ModCFG.txt";
+				//Идет проверка, существуют ли оба файла. Если да - он считается установленным
+				if (File.Exists(path) && File.Exists(path2))
+				{
+					isModInstalled = true;
+					form.isModInstalled = true;
+				}
+				else
+				{
+					isModInstalled = false;
+					form.isModInstalled = false;
+				}
+				// Проверяется, выбрана ли переустановка. В таком случае идет удаление папки модс
+				if (reinstall)
+				{
+					try { Directory.Delete(executePath, recursive: true); }
+					catch (Exception) { }
+				}
+				//Если обновление нужно, то, в зависимости от того, установлен мод или нет качается либо патчи, либо весь архив с игрой.
+				if (updateRequired)
+				{
+					updateInProgress = true; //Переменная, которая отвечает за то, при нажатии давать ли окошко о прерывании (и прерывать ли потоки) во время обновления.
+					if (isModInstalled && !reinstall) downloadAllPatches();
+					else callWholeUpdate();
+				}
+			}
+		}
 		private void settings_Load(object sender, EventArgs e)
 		{
 		}
@@ -229,48 +275,8 @@ namespace SRHDLauncher
 		private void goodChoice_MouseUp(object sender, MouseEventArgs e)
 		{
 		}
-		public void updateAppUpperLevel()
-		{
-			if (downloadSR1HDMode)
-			{
-				callDownloadSR1HD();
-				return;
-			}
-			string message = "";
-			long updateBytes = 1L;
-			bool sizeDiffers = false;
-			string[] array = null;
-			string imagePathRu = "";
-			string imagePathEng = "";
-			updateRequired = (reinstall || BoolConfirmation.checkIfUpdateIsRequired(form.pathToFile, "https://drive.google.com/file/d/1jDScpEkq-mybtv4SNtL-rjyE-9wM4Uos/view?usp=sharing", ref message, this, form, ref updateBytes, ref sizeDiffers, ref array, ref imagePathRu, ref imagePathEng));
-			if (updateRequired)
-			{
-				string path = StringProcessing.StepUp(form.pathToFile) + "\\Mods\\version.txt";
-				string path2 = StringProcessing.StepUp(form.pathToFile) + "\\Mods\\ModCFG.txt";
-				if (File.Exists(path) && File.Exists(path2))
-				{
-					isModInstalled = true;
-					form.isModInstalled = true;
-				}
-				else
-				{
-					isModInstalled = false;
-					form.isModInstalled = false;
-				}
-				if (reinstall)
-				{
-					try
-					{
-						Directory.Delete(executePath, recursive: true);
-					}
-					catch (Exception)
-					{
-					}
-				}
-				updateApp();
-			}
-			
-		}
+		
+
 		private void degenerateChoice_MouseUp(object sender, MouseEventArgs e)
 		{
 			degenerateChoice.Image = Resources._2OkA;
@@ -348,25 +354,7 @@ namespace SRHDLauncher
 		{
 		}
 
-		public void updateApp()
-		{
-			if (updateRequired)
-			{
-				string text = StringProcessing.StepUp(form.pathToFile) + "\\Mods\\version.txt";
-				updateInProgress = true;
-				degenerateChoice.Enabled = false;
-				degenerateChoice.Image = Resources._2OkD;
-				if (isModInstalled && !reinstall)
-				{
-					downloadAllPatches();
-				}
-				else
-				{
-					callWholeUpdate();
-
-				}
-			}
-		}
+	
 
 		private void OnClosing(object sender, CancelEventArgs cancelEventArgs)
 		{
@@ -424,94 +412,71 @@ namespace SRHDLauncher
 				totalBytes = 171312408L;
 				msg = "Downloading files: ";
 			}
-			string text = executePath + "\\Temp.zip";
-			FileInfo fileInfo = DownloadFiles(executePath, text, SRHD1Url, callProgressBar: true, totalBytes, msg);
+			string tempArchivePath = executePath + "\\Temp.zip";
+			FileInfo fileInfo = DownloadFiles(executePath, tempArchivePath, SRHD1Url, callProgressBar: true, totalBytes, msg);
 			Thread.Sleep(1200);
 			temp.Value = 0;
 			if (!abortEtoGreh)
 			{
 				archiveBegun = true;
-				ZipArchiveExtensions.Unpack(text, executePath, this, form);
+				ZipArchiveExtensions.Unpack(tempArchivePath, executePath, this, form);
 			}
 			else
 			{
-				File.Delete(text);
+				File.Delete(tempArchivePath);
 			}
 			downloadSR1HDMode = false;
 		}
 
 		public void callWholeUpdate()
 		{
-			string text = StringProcessing.StepUp(form.pathToFile);
-			string text2 = text + "\\Mods";
-			string path = text2 + "\\ModCFG.txt";
-			string path2 = text2 + "\\tempCfg.txt";
-			if (!Directory.Exists(text2))
+			//Задание всевозможный путей для работы с папкой игры и модов.
+			string SRHDFolder = StringProcessing.StepUp(form.pathToFile);
+			string ModsFolder = SRHDFolder + "\\Mods";
+			string pathToModCfg = ModsFolder + "\\ModCFG.txt";
+			string pathToTempCfg = ModsFolder + "\\tempCfg.txt";
+			if (!Directory.Exists(ModsFolder)) Directory.CreateDirectory(ModsFolder);
+			//Ниже идет проверка на то, удалены ли какие-либо моды в результаты обновлений ModCfg.txt на диске.
+			if (File.Exists(pathToModCfg))
 			{
-				Directory.CreateDirectory(text2);
-			}
-			
-			if (File.Exists(path))
-			{
-				FileDownloader.DownloadFileFromURLToPath(AppInfo.APP_CFG_LINK_FILE, path2, callProgressBar: false, this, null, 1L, "");
-				List<string> list = null;
-				list = ParseCfgFile(File.ReadAllLines(path));
-				List<string> source = ParseCfgFile(File.ReadAllLines(path2));
-				foreach (string item in list)
+				//Скачка Cfg файла приложения со списком модов
+				FileDownloader.DownloadFileFromURLToPath(AppInfo.APP_CFG_LINK_FILE, pathToTempCfg, callProgressBar: false, this, null, 1L, "");
+				List<string> localModCfg = ParseCfgFile(File.ReadAllLines(pathToModCfg)); //Локальный ModCfg.txt
+				List<string> driveModCfg = ParseCfgFile(File.ReadAllLines(pathToTempCfg)); //ModCfg.txt с Диска
+				foreach (string item in localModCfg)
 				{
-					if (!source.Any(item.Contains))
+					if (!driveModCfg.Any(item.Contains))
 					{
-						string path3 = text2 + "\\" + item;
-						if (Directory.Exists(path3))
-						{
-							Directory.Delete(text2 + "\\" + item, recursive: true);
-						}
+						string path3 = ModsFolder + "\\" + item;
+						if (Directory.Exists(path3)) Directory.Delete(ModsFolder + "\\" + item, recursive: true);
 					}
 				}
-				File.Delete(path2);
-			}
-		
-			string[] files = Directory.GetFiles(text2);
-			if (files.Length > 1)
+				File.Delete(pathToTempCfg);
+			}		
+			//Происходит самоу далние, путем сравнения двух массивов
+			string[] modFolderFileList = Directory.GetFiles(ModsFolder);
+			if (modFolderFileList.Length > 1)
 			{
-				string[] array = files;
-				foreach (string text3 in array)
+				foreach (string text3 in modFolderFileList)
 				{
-					try
-					{
-						if (!text3.Contains("ModCFG.txt"))
-						{
-							File.Delete(text3);
-						}
-					}
-					catch (Exception)
-					{
-					}
+					try { if (!text3.Contains("ModCFG.txt")) File.Delete(text3); }
+					catch (Exception) { }
 				}
 			}
-			string text4 = text + "\\Temp.zip";
-			string msg = "sosi. CallWholeUpdate";
-			if (form.Lang == "ru")
-			{
-				msg = "Скачивание файлов: ";
-			}
-			if (form.Lang == "eng")
-			{
-				msg = "Downloading files: ";
-			}
-			FileInfo fileInfo = DownloadFiles(text, text + "\\Temp.zip", AppInfo.APP_ZIP_FILE_LINK, callProgressBar: true, form.totalBytes, msg);
+			//Блок ниже скачивает сам архив с модом диска
+			string tempZipFolder = SRHDFolder + "\\Temp.zip";
+			string msg = StringProcessing.getMessage(form.Lang, "Скачивание файлов: ", "Downloading files: ");
+			DownloadFiles(SRHDFolder, SRHDFolder + "\\Temp.zip", AppInfo.APP_ZIP_FILE_LINK, callProgressBar: true, form.totalBytes, msg);
+			//Вроде как необходим какой-то перерыв чтоб записаться на диск, даже после окончания работы воркера
 			Thread.Sleep(600);
-			temp.Value = 0;
+			//Если никто не отменил скачку, начинается распаковка
 			if (!abortEtoGreh)
 			{
 				archiveBegun = true;
-				ZipArchiveExtensions.Unpack(text4, text, this, form);
+				ZipArchiveExtensions.Unpack(tempZipFolder, ModsFolder, this, form);
 				Thread.Sleep(50);
 			}
-			else
-			{
-				File.Delete(text4);
-			}
+			else File.Delete(tempZipFolder);
 		}
 
 		public void downloadAllPatches()

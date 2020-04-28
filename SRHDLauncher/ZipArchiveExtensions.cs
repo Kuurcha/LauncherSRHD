@@ -74,26 +74,43 @@ namespace SRHDLauncher
 			}
 		}
 
+		/// <summary>
+		/// Распаковывает архив из указанного пути в указанный путь
+		/// </summary>
+		/// <param name="zipFilePath">Путь источника, где находится архив</param>
+		/// <param name="zipFileFolderPath">Путь назначения распаковки, куда распаковывать</param>
+		/// <param name="form">Форма update, для изменения всевозможных параметров в ней, обработки прерываний и прочего</</param>
+		/// <param name="mainform">Форма mainform, для изменения параметров в ней, обработки прерываний и прочего</param>
 		public static void Unpack(string zipFilePath, string zipFileFolderPath, update form, mainform mainform)
 		{
+			//Установка переданных переменных
 			form1 = form;
 			form2 = mainform;
+			archivePath = zipFilePath;
+			//Создание переменной для тикания прогресса и подпись на событие
 			_progress = new Progress<ZipProgress>();
 			_progress.ProgressChanged += Report;
+			//Сброс прогресс бара
 			form.progressBar.Value = 0;
-			archivePath = zipFilePath;
+			
+			//Лямбда-выражение для запуска потока с распаковкой
 			new Thread((ThreadStart)delegate
 			{
 				Download(zipFilePath, zipFileFolderPath);
 			}).Start();
 		}
 
-		public static void Download(string url, string filePathDir)
+		/// <summary>
+		/// Метод для самого процесса скачки
+		/// </summary>
+		/// <param name="zipFilePath"></param>
+		/// <param name="zipFileFolderPath"></param>
+		public static void Download(string zipFilePath, string zipFileFolderPath)
 		{
 			wc = new WebClient();
-			zipReadingStream = wc.OpenRead(url);
+			zipReadingStream = wc.OpenRead(zipFilePath);
 			zip = new ZipArchive(zipReadingStream);
-			zip.ExtractToDirectory(filePathDir, _progress);
+			zip.ExtractToDirectory(zipFileFolderPath, _progress);
 			flag = BoolConfirmation.checkIfUpdateIsRequired(form2.pathToFile, "https://drive.google.com/file/d/1jDScpEkq-mybtv4SNtL-rjyE-9wM4Uos/view?usp=sharing", form1, form2);
 			form1.flagToContinue = flag;
 			form1.RepeatUntilBusy(wc);
@@ -101,26 +118,15 @@ namespace SRHDLauncher
 			File.Delete(archivePath);
 			form1.updateInProgress = false;
 			form1.archiveBegun = false;
+			//Установка технически переменных, которые были не убраны из метода по обновлению короч этого самого вашего лончера.
 			string message = "";
 			long updateBytes = 1L;
 			bool sizeDiffers = false;
 			string[] info = null;
-			string imagePathRu = "";
-			string imagePathEng = "";
 
-			flag = BoolConfirmation.checkIfUpdateIsRequired(form2.pathToFile, "https://drive.google.com/file/d/1jDScpEkq-mybtv4SNtL-rjyE-9wM4Uos/view?usp=sharing", ref message, form1, form2, ref updateBytes, ref sizeDiffers, ref info, ref imagePathRu, ref imagePathEng);
+			flag = BoolConfirmation.checkIfUpdateIsRequired(form2.pathToFile, "https://drive.google.com/file/d/1jDScpEkq-mybtv4SNtL-rjyE-9wM4Uos/view?usp=sharing", ref message, form1, form2, ref updateBytes, ref sizeDiffers, ref info);
 			form1.flagToContinue = true;
-			if (!flag)
-			{
-				if (form2.Lang == "ru")
-				{
-					message = "                                         Мод установлен.";
-				}
-				if (form2.Lang == "eng")
-				{
-					message = "                                         Mod installed. ";		}
-				
-			}
+			if (!flag) message = StringProcessing.getMessage(form2.Lang, "                                         Мод установлен.", "                                         Mod installed. ");
 			form1.isModInstalled = true;
 			form2.isModInstalled = true;
 			form2.updateRequired = flag;
@@ -131,14 +137,7 @@ namespace SRHDLauncher
 				form1.reinstall = false;
 				form1.isModInstalled = true;
 			}
-			if (flag)
-			{
-				
-			}
-			else
-			{
-				form1.updateInProgress = false;
-			}
+			if (!flag) form1.updateInProgress = false;
 		}
 	}
 }

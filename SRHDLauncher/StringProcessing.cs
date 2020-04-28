@@ -4,6 +4,19 @@ namespace SRHDLauncher
 {
 	internal static class StringProcessing
 	{
+		/// <summary>
+		/// Замена страшной конструкции с выбором языков, сразу возвращает значение одной строчкой
+		/// </summary>
+		/// <param name="lang">Переменная, отвечающая за выбранный в лаунчере язык</param>
+		/// <param name="messageRu">Сообщение на русском</param>
+		/// <param name="messageEng">Сообщение на английском</param>
+		/// <returns>Текст на нужном языке</returns>
+		public static string getMessage(string lang, string messageRu, string messageEng)
+		{
+			if (lang == "ru") return messageRu;
+			if (lang == "eng") return messageEng;
+			return "lang chosen wrong";
+		}
 		public static string StepUp(string path)
 		{
 			if (path != null)

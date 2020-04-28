@@ -148,36 +148,40 @@ namespace SRHDLauncher
 			}
 			return result;
 		}
-		internal static bool checkIfUpdateIsRequired(string path, string URI, ref string message, update updateForm, mainform mainMenuForm, ref long updateBytes, ref bool sizeDiffers, ref string[] info, ref string imagePathRu, ref string imagePathEng)
+	
+		/// <summary>
+		/// Метод, для проверки необходимо ли лаунчеру обновлять предложение
+		/// </summary>
+		/// <param name="path">Путь к файлу</param>
+		/// <param name="URI">Путь к обновлению на гугл диске</param>
+		/// <param name="message">Конкретное сообщение для мессейдж бокса об обновлении</param>
+		/// <param name="updateForm">Форма с обновлением, если та была вызвана из нее.</param>
+		/// <param name="mainMenuForm">Форма главного меню, для смены глобальный параметров</param>
+		/// <param name="updateBytes">Суммарное количество байтов что займет скачиваемый файл</param>
+		/// <param name="sizeDiffers"></param>
+		/// <param name="info"></param>
+		/// <returns>Необходимо ли обновлять приложение</returns>
+		internal static bool checkIfUpdateIsRequired(string path, string URI, ref string message, update updateForm, mainform mainMenuForm, ref long updateBytes, ref bool sizeDiffers, ref string[] info)
 		{
 			bool result = false;
 			bool flag = false;
 			path = StringProcessing.StepUp(path);	
-			string path2 = path + "\\Mods\\version.txt";
-			string path3 = path + "\\tempIni.ini";
+			string pathToVersionTxt = path + "\\Mods\\version.txt";
+			
 			string text = message;
 			try
 			{
-				List<string> list = new List<string>();
-				Assembly.GetExecutingAssembly().GetManifestResourceNames();
-				string[] array;
+				List<string> list = new List<string>(); //Список для хранения всех обновлений по версиям
+				string[] updatesArray; //Массив, в который будет  в дальнейшем превращен список выше
 				using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SRHDLauncher.Resources.launсherHash.txt"))
 				{
-					int num = 0;
-					bool flag2 = false;
-					TextReader textReader = new StreamReader(stream);
-					string text2;
+					int i = 0; //Переменная для итерации
+					bool flag2 = false; //Переменная для проверки, начался ли при парсинге участок с версиями 
+					TextReader textReader = new StreamReader(stream); //Объект StreamReader для чтения текстового файла
+					string text2; // Переменная которая будет отвечать за считывающуюся строку в цикле ниже. Почему-то нельзя объявлять такие вещи в while
 					while ((text2 = textReader.ReadLine()) != null)
 					{
-						num++;
-						if (num == 2)
-						{
-							imagePathRu = text2;
-						}
-						if (num == 3)
-						{
-							imagePathEng = text2;
-						}
+						i++;
 						if (text2 == "<StartVersions>")
 						{
 							flag2 = true;
@@ -191,83 +195,40 @@ namespace SRHDLauncher
 							list.Add(text2);
 						}
 					}
-					array = (info = list.ToArray());
+					updatesArray = (info = list.ToArray());
 				}
 				double result2 = 0.0;
-				bool modCfgExistsFlag = File.Exists(path + "\\Mods\\ModCFG.txt");
-				bool versionExistsFlag = File.Exists(path2);
-				if (modCfgExistsFlag && versionExistsFlag)
+				bool modCfgExistsFlag = File.Exists(path + "\\Mods\\ModCFG.txt"); //Условие существования modCfg.txt файла
+				bool versionExistsFlag = File.Exists(pathToVersionTxt); //Условие существование version.txt файла
+				if (modCfgExistsFlag && versionExistsFlag) //Если и файл версий, и модкфг существует, в таком случае считается что мод скачен, идет преобразование массива с текстом о версиях в ссылки и их соотвествующие версии, размеры.
 				{
-					string[] array2 = File.ReadAllLines(path2);
+					string[] array2 = File.ReadAllLines(pathToVersionTxt);
+					//В случае если файл версий нельзя пропарсить, в таком случае невозможно проверить как много надо добавить патчей поверх, выдаем соотвествующую ошибку и качаем игру с нуля.
 					if (array2.Length == 0 || !double.TryParse(array2[0], out result2))
 					{
-						if (mainMenuForm.Lang == "ru")
-						{
-							message = "Файл версий в неверном формате. Невозможно проверить наличие обновлений. Нажмите √ для продолжения";
-						}
-						if (mainMenuForm.Lang == "eng")
-						{
-							message = "Version file is incorrect. It's impossible to check, if updates are necssary. Press √ to proceed";
-						}
+						message = StringProcessing.getMessage(mainMenuForm.Lang, "Файл версий в неверном формате. Невозможно проверить наличие обновлений. Нажмите √ для продолжения", "Version file is incorrect. It's impossible to check, if updates are necssary. Press √ to proceed");
 						return true;
 					}
-					for (int i = 1; i < array.Length - 1; i += 3)
+					//Цикл парсящий каждую третью строку, проверяющий, есть ли хоть одно обновление, выше версией нежели в versions.txt
+					for (int i = 1; i < updatesArray.Length - 1; i += 3)
 					{
-						double num2 = double.Parse(array[i]);
+						double num2 = double.Parse(updatesArray[i]);
 						flag = !(result2 >= num2);
-						if (flag)
-						{
-							break;
-						}
+						if (flag) break;
 					}
-					if (flag && File.Exists(path2))
-					{
-						message = "Проблема в сheckIsUpdateRequired. Язык. Или в авторе.";
-						if (mainMenuForm.Lang == "ru")
-						{
-							message = "Доступна новая версия мода. Нажмите √ для продолжения";
-						}
-						if (mainMenuForm.Lang == "eng")
-						{
-							message = "The mod update is avaliable. Press √ to proceed";
-						}
-					}
+					//Если все выполняется, выводим сообщения об этом, и изменяет результат на то, что обновления таки нужны.
+					if (flag && File.Exists(pathToVersionTxt)) message = StringProcessing.getMessage(mainMenuForm.Lang, "Доступна новая версия мода. Нажмите √ для продолжения", "The mod update is avaliable. Press √ to proceed");
 					result = (flag);
 				}
 				else
 				{
-					message = "Проблема в сheckIsUpdateRequired. Язык. Или в авторе.";
-					if ((modCfgExistsFlag && !versionExistsFlag))
-					{
-						if (mainMenuForm.Lang == "ru")
-						{
-							message = "Отсуствует ModCfg или файл версий. Нажмите √ для продолжения";
-						}
-						if (mainMenuForm.Lang == "eng")
-						{
-							message = "Version file or ModCfg is absent. Press √ to proceed";
-						}
-					}
-					if ((!modCfgExistsFlag && !versionExistsFlag) || (!modCfgExistsFlag && versionExistsFlag))
-					{
-						if (mainMenuForm.Lang == "ru")
-						{
-							message = "Мод еще не установлен. Нажмите √ для продолжения";
-						}
-						if (mainMenuForm.Lang == "eng")
-						{
-							message = "Mod isn't installed yet. Press √ to proceed";
-						}
-					}
-					
-				
+					//Обновления нужны, но, идет проверка. Первый раз ли ставится Мод (нету ни версий, ни мод кфг), либо проблема какая-либо с файлом версий.
+					if ((modCfgExistsFlag && !versionExistsFlag)) message = StringProcessing.getMessage(mainMenuForm.Lang, "Отсуствует файл версий. Нажмите √ для продолжения", "Version file is absent. Press √ to proceed");
+					if ((!modCfgExistsFlag && !versionExistsFlag) || (!modCfgExistsFlag && versionExistsFlag)) message = StringProcessing.getMessage(mainMenuForm.Lang, "Мод еще не установлен.Нажмите √ для продолжения", "Version file or ModCfg is absent.Press √ to proceed");
 					result = true;
 				}
-				File.Delete(path3);
 			}
-			catch (Exception)
-			{
-			}
+			catch (Exception) { }
 			return result;
 		}
 

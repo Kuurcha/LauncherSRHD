@@ -970,7 +970,7 @@ namespace SRHDLauncher
 				message = "Clean reinstall was chosen. ";
 				reinstallBtn.Image = Resources.reinstalEng;
 			}
-			mainform.callUpdate(mainform.pathToFile, message, reisntall: true, SR1HD: false);
+			mainform.callUpdate(mainform.pathToFile, reisntall: true, SR1HD: false);
 		}
 
 		private void reinstallBtn_MouseDown(object sender, MouseEventArgs e)

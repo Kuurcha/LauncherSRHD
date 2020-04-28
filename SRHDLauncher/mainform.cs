@@ -905,7 +905,7 @@ namespace SRHDLauncher
 			if (!launcherIsOutdated)
 			{
 				bool sizeDiffers = true;
-				updateRequired = BoolConfirmation.checkIfUpdateIsRequired(pathToFile, "https://drive.google.com/file/d/1jDScpEkq-mybtv4SNtL-rjyE-9wM4Uos/view?usp=sharing", ref message, null, this, ref totalBytes, ref sizeDiffers, ref info, ref imagePathRu, ref imagePathEng); 
+				updateRequired = BoolConfirmation.checkIfUpdateIsRequired(pathToFile, "https://drive.google.com/file/d/1jDScpEkq-mybtv4SNtL-rjyE-9wM4Uos/view?usp=sharing", ref message, null, this, ref totalBytes, ref sizeDiffers, ref info); 
 				if (updateRequired)
 				{
 					if (updateForm != null) updateForm = null;
@@ -1029,17 +1029,17 @@ namespace SRHDLauncher
 		{
 		}
 
-		public void callUpdate(string path, string message, bool reisntall, bool SR1HD)
+		public void callUpdate(string path, bool reisntall, bool SR1HD)
 		{
 			if (updateForm == null)
 			{
 				if (!SR1HD)
 				{
-					updateForm = new update(pathToFile, updateRequired, totalBytes, this, isModInstalled, info, message, reisntall, SR1HD);
+					updateForm = new update(pathToFile, updateRequired, totalBytes, this, isModInstalled, info, reisntall, SR1HD);
 				}
 				else
 				{
-					updateForm = new update(path, updateRequired, totalBytes, this, isModInstalled, info, message, reisntall, SR1HD);
+					updateForm = new update(path, updateRequired, totalBytes, this, isModInstalled, info,  reisntall, SR1HD);
 				}
 			}	
 		}
@@ -1137,7 +1137,7 @@ namespace SRHDLauncher
 					InitialiseFont();
 						string text2 = "";
 						bool sizeDiffers = false;
-					updateRequired = BoolConfirmation.checkIfUpdateIsRequired(pathToFile, "https://drive.google.com/file/d/1jDScpEkq-mybtv4SNtL-rjyE-9wM4Uos/view?usp=sharing", ref message, null, this, ref totalBytes, ref sizeDiffers, ref info, ref imagePathRu, ref imagePathEng);
+					updateRequired = BoolConfirmation.checkIfUpdateIsRequired(pathToFile, "https://drive.google.com/file/d/1jDScpEkq-mybtv4SNtL-rjyE-9wM4Uos/view?usp=sharing", ref message, null, this, ref totalBytes, ref sizeDiffers, ref info);
 					if (updateRequired && isPathCorrect)
 					{
 						myMessageBox = FormsFunctions.CallMessageBox(message, this);
@@ -1401,7 +1401,7 @@ namespace SRHDLauncher
 				string s = "";
 				if (BoolConfirmation.OpenDialogSR1HD(ref s))
 				{
-					callUpdate(StringProcessing.StepUp(s), text2, reisntall: false, SR1HD: true);
+					callUpdate(StringProcessing.StepUp(s), reisntall: false, SR1HD: true);
 					updateForm.SRHD1Url = sRHD1Url;
 					updateForm.downloadSR1HDMode = true;
 				}

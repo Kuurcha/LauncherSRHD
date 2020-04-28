@@ -164,7 +164,7 @@ namespace SRHDLauncher
 			if (mainform != null)
 			{
 				mainform.answer = true;
-				mainform.callUpdate(mainform.executabePath, textBoxMesage, reisntall: false, SR1HD: false);
+				mainform.callUpdate(mainform.executabePath, reisntall: false, SR1HD: false);
 			}
 			if (form2 != null)
 			{
