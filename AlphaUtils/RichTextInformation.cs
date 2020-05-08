@@ -4,23 +4,23 @@ namespace AlphaUtils
 {
 	public class RichTextInformation
 	{
-		protected internal Font FontInternal;
+		public Font Fontpublic;
 
-		protected internal Color ForeColorInternal;
+		public Color ForeColorpublic;
 
-		protected internal Color BackColorInternal;
+		public Color BackColorpublic;
 
-		public Font Font => FontInternal;
+		public Font Font => Fontpublic;
 
-		public Color ForeColor => ForeColorInternal;
+		public Color ForeColor => ForeColorpublic;
 
-		public Color BackColor => BackColorInternal;
+		public Color BackColor => BackColorpublic;
 
 		public RichTextInformation(Font fnt, Color fore, Color back)
 		{
-			FontInternal = fnt;
-			ForeColorInternal = fore;
-			BackColorInternal = back;
+			Fontpublic = fnt;
+			ForeColorpublic = fore;
+			BackColorpublic = back;
 		}
 
 		public RichTextInformation()

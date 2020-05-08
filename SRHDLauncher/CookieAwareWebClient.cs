@@ -78,7 +78,6 @@ namespace SRHDLauncher
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.ToString());
 				FileDownloader.setDownloadInterrupted(itIs: true);
 				return null;
 			}

@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace SRHDLauncher
 {
-	internal static class Program
+	static class Program
 	{
 		[STAThread]
 		private static void Main()

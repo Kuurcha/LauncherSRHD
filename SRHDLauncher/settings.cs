@@ -29,7 +29,7 @@ namespace SRHDLauncher
 
 		private const uint DOSIZE = 61448u;
 
-		public string[] ruLabels = 
+		public string[] ruLabels =
 		{
 			"Комплектация модов",
 			"  Cохранить пресет настроек",
@@ -43,7 +43,7 @@ namespace SRHDLauncher
 			"Cбросить настройки лаунчера"
 		};
 
-		public string[] engLabels = 
+		public string[] engLabels =
 		{
 			"Mod sets",
 			"  Save mod set",
@@ -140,10 +140,10 @@ namespace SRHDLauncher
 		private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
 
 		[DllImport("user32", CharSet = CharSet.Auto)]
-		internal static extern bool PostMessage(IntPtr hWnd, uint Msg, uint WParam, uint LParam);
+		public static extern bool PostMessage(IntPtr hWnd, uint Msg, uint WParam, uint LParam);
 
 		[DllImport("user32", CharSet = CharSet.Auto)]
-		internal static extern bool ReleaseCapture();
+		public static extern bool ReleaseCapture();
 
 		[DllImport("User32.dll")]
 		public static extern int SetForegroundWindow(int hWnd);
@@ -1052,459 +1052,459 @@ namespace SRHDLauncher
 
 		private void InitializeComponent()
 		{
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(settings));
-            this.closeWindow = new System.Windows.Forms.PictureBox();
-            this.minimizeWindow = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.firstSet = new System.Windows.Forms.PictureBox();
-            this.secondSet = new System.Windows.Forms.PictureBox();
-            this.thirdSet = new System.Windows.Forms.PictureBox();
-            this.russian = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.english = new System.Windows.Forms.CheckBox();
-            this.checkHash = new System.Windows.Forms.PictureBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.pathToFile = new System.Windows.Forms.TextBox();
-            this.fuckYou = new System.Windows.Forms.PictureBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.createBackupButton = new System.Windows.Forms.PictureBox();
-            this.restoreBackupMods = new System.Windows.Forms.PictureBox();
-            this.saveState = new System.Windows.Forms.PictureBox();
-            this.defaultSettings = new System.Windows.Forms.PictureBox();
-            this.Ubercharge = new System.Windows.Forms.CheckBox();
-            this.turnOffLauncher = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label8 = new System.Windows.Forms.Label();
-            this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
-            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.reinstallBtn = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label6 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.closeWindow)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.minimizeWindow)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.firstSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.secondSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.thirdSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkHash)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fuckYou)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.createBackupButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.restoreBackupMods)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saveState)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.defaultSettings)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.reinstallBtn)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // closeWindow
-            // 
-            this.closeWindow.BackgroundImage = global::SRHDLauncher.Properties.Resources.uniTopBackground;
-            this.closeWindow.Image = ((System.Drawing.Image)(resources.GetObject("closeWindow.Image")));
-            this.closeWindow.Location = new System.Drawing.Point(857, 55);
-            this.closeWindow.Name = "closeWindow";
-            this.closeWindow.Size = new System.Drawing.Size(24, 24);
-            this.closeWindow.TabIndex = 16;
-            this.closeWindow.TabStop = false;
-            this.closeWindow.Click += new System.EventHandler(this.closeWindow_Click);
-            this.closeWindow.MouseDown += new System.Windows.Forms.MouseEventHandler(this.closeWindow_MouseDown);
-            this.closeWindow.MouseUp += new System.Windows.Forms.MouseEventHandler(this.closeWindow_MouseUp);
-            // 
-            // minimizeWindow
-            // 
-            this.minimizeWindow.BackgroundImage = global::SRHDLauncher.Properties.Resources.uniTopBackground;
-            this.minimizeWindow.Image = global::SRHDLauncher.Properties.Resources._2SubA;
-            this.minimizeWindow.Location = new System.Drawing.Point(827, 55);
-            this.minimizeWindow.Name = "minimizeWindow";
-            this.minimizeWindow.Size = new System.Drawing.Size(24, 24);
-            this.minimizeWindow.TabIndex = 15;
-            this.minimizeWindow.TabStop = false;
-            this.minimizeWindow.MouseDown += new System.Windows.Forms.MouseEventHandler(this.minimizeWindow_MouseDown);
-            this.minimizeWindow.MouseUp += new System.Windows.Forms.MouseEventHandler(this.minimizeWindow_MouseUp);
-            // 
-            // label2
-            // 
-            this.label2.Cursor = System.Windows.Forms.Cursors.AppStarting;
-            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Image = global::SRHDLauncher.Properties.Resources.background_universe_form;
-            this.label2.Location = new System.Drawing.Point(96, 106);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(191, 17);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "Комплектация модов";
-            this.label2.UseCompatibleTextRendering = true;
-            // 
-            // firstSet
-            // 
-            this.firstSet.BackgroundImage = global::SRHDLauncher.Properties.Resources.background_universe_form;
-            this.firstSet.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.firstSet.Image = global::SRHDLauncher.Properties.Resources._1_not_active;
-            this.firstSet.Location = new System.Drawing.Point(96, 126);
-            this.firstSet.Name = "firstSet";
-            this.firstSet.Size = new System.Drawing.Size(27, 20);
-            this.firstSet.TabIndex = 20;
-            this.firstSet.TabStop = false;
-            this.firstSet.Click += new System.EventHandler(this.firstSet_Click);
-            this.firstSet.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown_2);
-            this.firstSet.MouseUp += new System.Windows.Forms.MouseEventHandler(this.firstSet_MouseUp);
-            // 
-            // secondSet
-            // 
-            this.secondSet.BackgroundImage = global::SRHDLauncher.Properties.Resources.background_universe_form;
-            this.secondSet.Image = global::SRHDLauncher.Properties.Resources._2_not_active;
-            this.secondSet.Location = new System.Drawing.Point(129, 126);
-            this.secondSet.Name = "secondSet";
-            this.secondSet.Size = new System.Drawing.Size(27, 20);
-            this.secondSet.TabIndex = 21;
-            this.secondSet.TabStop = false;
-            this.secondSet.Click += new System.EventHandler(this.secondSet_Click);
-            this.secondSet.MouseDown += new System.Windows.Forms.MouseEventHandler(this.secondSet_MouseDown);
-            this.secondSet.MouseUp += new System.Windows.Forms.MouseEventHandler(this.secondSet_MouseUp);
-            // 
-            // thirdSet
-            // 
-            this.thirdSet.BackgroundImage = global::SRHDLauncher.Properties.Resources.background_universe_form;
-            this.thirdSet.Image = global::SRHDLauncher.Properties.Resources._3_not_active;
-            this.thirdSet.Location = new System.Drawing.Point(162, 126);
-            this.thirdSet.Name = "thirdSet";
-            this.thirdSet.Size = new System.Drawing.Size(27, 20);
-            this.thirdSet.TabIndex = 22;
-            this.thirdSet.TabStop = false;
-            this.thirdSet.Click += new System.EventHandler(this.thirdSet_Click);
-            this.thirdSet.MouseDown += new System.Windows.Forms.MouseEventHandler(this.thirdSet_MouseDown);
-            this.thirdSet.MouseUp += new System.Windows.Forms.MouseEventHandler(this.thirdSet_MouseUp);
-            // 
-            // russian
-            // 
-            this.russian.AutoSize = true;
-            this.russian.Location = new System.Drawing.Point(88, 238);
-            this.russian.Name = "russian";
-            this.russian.Size = new System.Drawing.Size(15, 14);
-            this.russian.TabIndex = 23;
-            this.russian.UseVisualStyleBackColor = true;
-            this.russian.CheckedChanged += new System.EventHandler(this.russian_CheckedChanged);
-            this.russian.Click += new System.EventHandler(this.russian_Click);
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Cursor = System.Windows.Forms.Cursors.AppStarting;
-            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(249, 237);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 20);
-            this.label1.TabIndex = 25;
-            this.label1.Text = "English";
-            this.label1.UseCompatibleTextRendering = true;
-            // 
-            // label4
-            // 
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Cursor = System.Windows.Forms.Cursors.AppStarting;
-            this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label4.Location = new System.Drawing.Point(101, 236);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 21);
-            this.label4.TabIndex = 26;
-            this.label4.Text = "Русский";
-            this.label4.UseCompatibleTextRendering = true;
-            // 
-            // english
-            // 
-            this.english.AutoSize = true;
-            this.english.Location = new System.Drawing.Point(235, 238);
-            this.english.Name = "english";
-            this.english.Size = new System.Drawing.Size(15, 14);
-            this.english.TabIndex = 27;
-            this.english.UseVisualStyleBackColor = true;
-            this.english.CheckedChanged += new System.EventHandler(this.english_CheckedChanged);
-            this.english.Click += new System.EventHandler(this.english_Click);
-            // 
-            // checkHash
-            // 
-            this.checkHash.BackgroundImage = global::SRHDLauncher.Properties.Resources.background_universe_form;
-            this.checkHash.Image = global::SRHDLauncher.Properties.Resources._2AutoA;
-            this.checkHash.Location = new System.Drawing.Point(195, 328);
-            this.checkHash.Name = "checkHash";
-            this.checkHash.Size = new System.Drawing.Size(43, 34);
-            this.checkHash.TabIndex = 28;
-            this.checkHash.TabStop = false;
-            this.checkHash.Click += new System.EventHandler(this.checkHash_Click);
-            this.checkHash.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkHash_MouseClick);
-            this.checkHash.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown_3);
-            this.checkHash.MouseUp += new System.Windows.Forms.MouseEventHandler(this.checkHash_MouseUp);
-            // 
-            // label5
-            // 
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Cursor = System.Windows.Forms.Cursors.AppStarting;
-            this.label5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label5.Location = new System.Drawing.Point(141, 305);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(186, 20);
-            this.label5.TabIndex = 29;
-            this.label5.Text = "Сменить тип запуска";
-            this.label5.UseCompatibleTextRendering = true;
-            this.label5.Click += new System.EventHandler(this.label5_Click);
-            // 
-            // pathToFile
-            // 
-            this.pathToFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(201)))), ((int)(((byte)(210)))));
-            this.pathToFile.Location = new System.Drawing.Point(469, 114);
-            this.pathToFile.Name = "pathToFile";
-            this.pathToFile.ReadOnly = true;
-            this.pathToFile.Size = new System.Drawing.Size(382, 20);
-            this.pathToFile.TabIndex = 30;
-            this.pathToFile.TextChanged += new System.EventHandler(this.pathToFile_TextChanged);
-            // 
-            // fuckYou
-            // 
-            this.fuckYou.BackgroundImage = global::SRHDLauncher.Properties.Resources.background_universe_form;
-            this.fuckYou.Image = global::SRHDLauncher.Properties.Resources._2SC_RepareA;
-            this.fuckYou.Location = new System.Drawing.Point(469, 140);
-            this.fuckYou.Name = "fuckYou";
-            this.fuckYou.Size = new System.Drawing.Size(23, 20);
-            this.fuckYou.TabIndex = 32;
-            this.fuckYou.TabStop = false;
-            this.fuckYou.Click += new System.EventHandler(this.fuckYou_Click);
-            this.fuckYou.MouseDown += new System.Windows.Forms.MouseEventHandler(this.fuckYou_MouseDown);
-            this.fuckYou.MouseMove += new System.Windows.Forms.MouseEventHandler(this.fuckYou_MouseMove);
-            this.fuckYou.MouseUp += new System.Windows.Forms.MouseEventHandler(this.fuckYou_MouseUp);
-            // 
-            // label7
-            // 
-            this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Cursor = System.Windows.Forms.Cursors.AppStarting;
-            this.label7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label7.Location = new System.Drawing.Point(492, 141);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(192, 18);
-            this.label7.TabIndex = 33;
-            this.label7.Text = "Изменить";
-            this.label7.UseCompatibleTextRendering = true;
-            this.label7.Click += new System.EventHandler(this.label7_Click);
-            // 
-            // createBackupButton
-            // 
-            this.createBackupButton.Enabled = false;
-            this.createBackupButton.Image = ((System.Drawing.Image)(resources.GetObject("createBackupButton.Image")));
-            this.createBackupButton.Location = new System.Drawing.Point(484, 170);
-            this.createBackupButton.Name = "createBackupButton";
-            this.createBackupButton.Size = new System.Drawing.Size(247, 29);
-            this.createBackupButton.TabIndex = 41;
-            this.createBackupButton.TabStop = false;
-            this.createBackupButton.Click += new System.EventHandler(this.createBackupButton_Click);
-            this.createBackupButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.createBackupButton_MouseDown_1);
-            this.createBackupButton.MouseMove += new System.Windows.Forms.MouseEventHandler(this.createBackupButton_MouseMove);
-            this.createBackupButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.createBackupButton_MouseUp_1);
-            // 
-            // restoreBackupMods
-            // 
-            this.restoreBackupMods.Enabled = false;
-            this.restoreBackupMods.Image = ((System.Drawing.Image)(resources.GetObject("restoreBackupMods.Image")));
-            this.restoreBackupMods.Location = new System.Drawing.Point(484, 205);
-            this.restoreBackupMods.Name = "restoreBackupMods";
-            this.restoreBackupMods.Size = new System.Drawing.Size(247, 28);
-            this.restoreBackupMods.TabIndex = 42;
-            this.restoreBackupMods.TabStop = false;
-            this.restoreBackupMods.Click += new System.EventHandler(this.restoreBackupMods_Click_1);
-            this.restoreBackupMods.MouseDown += new System.Windows.Forms.MouseEventHandler(this.restoreBackupMods_MouseDown_1);
-            this.restoreBackupMods.MouseUp += new System.Windows.Forms.MouseEventHandler(this.restoreBackupMods_MouseUp_1);
-            // 
-            // saveState
-            // 
-            this.saveState.Enabled = false;
-            this.saveState.Image = ((System.Drawing.Image)(resources.GetObject("saveState.Image")));
-            this.saveState.Location = new System.Drawing.Point(81, 170);
-            this.saveState.Name = "saveState";
-            this.saveState.Size = new System.Drawing.Size(246, 29);
-            this.saveState.TabIndex = 43;
-            this.saveState.TabStop = false;
-            this.saveState.Click += new System.EventHandler(this.saveState_Click);
-            this.saveState.MouseDown += new System.Windows.Forms.MouseEventHandler(this.saveState_MouseDown);
-            this.saveState.MouseUp += new System.Windows.Forms.MouseEventHandler(this.saveState_MouseUp_1);
-            // 
-            // defaultSettings
-            // 
-            this.defaultSettings.Enabled = false;
-            this.defaultSettings.Image = ((System.Drawing.Image)(resources.GetObject("defaultSettings.Image")));
-            this.defaultSettings.Location = new System.Drawing.Point(81, 205);
-            this.defaultSettings.Name = "defaultSettings";
-            this.defaultSettings.Size = new System.Drawing.Size(247, 28);
-            this.defaultSettings.TabIndex = 44;
-            this.defaultSettings.TabStop = false;
-            this.defaultSettings.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown_4);
-            this.defaultSettings.MouseUp += new System.Windows.Forms.MouseEventHandler(this.test_MouseUp);
-            // 
-            // Ubercharge
-            // 
-            this.Ubercharge.AutoSize = true;
-            this.Ubercharge.Location = new System.Drawing.Point(195, 129);
-            this.Ubercharge.Name = "Ubercharge";
-            this.Ubercharge.Size = new System.Drawing.Size(15, 14);
-            this.Ubercharge.TabIndex = 45;
-            this.toolTip2.SetToolTip(this.Ubercharge, "Активно - будет означать что при выборе разных комплектаций основной ModCFG файл " +
-        "будет заменяться уже существующими пресетами");
-            this.Ubercharge.UseVisualStyleBackColor = true;
-            this.Ubercharge.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            this.Ubercharge.Click += new System.EventHandler(this.Ubercharge_Click);
-            // 
-            // turnOffLauncher
-            // 
-            this.turnOffLauncher.AutoSize = true;
-            this.turnOffLauncher.Location = new System.Drawing.Point(463, 307);
-            this.turnOffLauncher.Name = "turnOffLauncher";
-            this.turnOffLauncher.Size = new System.Drawing.Size(15, 14);
-            this.turnOffLauncher.TabIndex = 46;
-            this.turnOffLauncher.UseVisualStyleBackColor = true;
-            this.turnOffLauncher.CheckedChanged += new System.EventHandler(this.replace_CheckedChanged);
-            this.turnOffLauncher.Click += new System.EventHandler(this.turnOffLauncher_Click);
-            // 
-            // label3
-            // 
-            this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Cursor = System.Windows.Forms.Cursors.AppStarting;
-            this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(209, 128);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 20);
-            this.label3.TabIndex = 47;
-            this.label3.Text = "Активно";
-            this.toolTip1.SetToolTip(this.label3, "Активно - будет означать что при выборе разных комплектаций основной ModCFG файл " +
-        "будет заменяться уже существующими пресетами");
-            this.label3.UseCompatibleTextRendering = true;
-            // 
-            // label8
-            // 
-            this.label8.Cursor = System.Windows.Forms.Cursors.AppStarting;
-            this.label8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label8.Image = global::SRHDLauncher.Properties.Resources.background_universe_form;
-            this.label8.Location = new System.Drawing.Point(484, 305);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(309, 20);
-            this.label8.TabIndex = 49;
-            this.label8.Text = "Закрывать лаунчер при запуске игры";
-            this.label8.UseCompatibleTextRendering = true;
-            this.label8.Click += new System.EventHandler(this.label8_Click);
-            // 
-            // fileSystemWatcher1
-            // 
-            this.fileSystemWatcher1.EnableRaisingEvents = true;
-            this.fileSystemWatcher1.SynchronizingObject = this;
-            // 
-            // reinstallBtn
-            // 
-            this.reinstallBtn.BackColor = System.Drawing.Color.Transparent;
-            this.reinstallBtn.Enabled = false;
-            this.reinstallBtn.Image = ((System.Drawing.Image)(resources.GetObject("reinstallBtn.Image")));
-            this.reinstallBtn.Location = new System.Drawing.Point(484, 239);
-            this.reinstallBtn.Name = "reinstallBtn";
-            this.reinstallBtn.Size = new System.Drawing.Size(247, 32);
-            this.reinstallBtn.TabIndex = 50;
-            this.reinstallBtn.TabStop = false;
-            this.reinstallBtn.Click += new System.EventHandler(this.reinstallBtn_Click);
-            this.reinstallBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.reinstallBtn_MouseDown);
-            this.reinstallBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.reinstallBtn_MouseUp);
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackgroundImage = global::SRHDLauncher.Properties.Resources.background_universe_form;
-            this.pictureBox2.Image = global::SRHDLauncher.Properties.Resources._2SC_RepareA;
-            this.pictureBox2.Location = new System.Drawing.Point(469, 423);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(23, 20);
-            this.pictureBox2.TabIndex = 51;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseDown);
-            this.pictureBox2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseUp);
-            // 
-            // label6
-            // 
-            this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Cursor = System.Windows.Forms.Cursors.AppStarting;
-            this.label6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label6.Location = new System.Drawing.Point(491, 424);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(253, 18);
-            this.label6.TabIndex = 52;
-            this.label6.Text = "Cбросить настройки лаунчера";
-            this.label6.UseCompatibleTextRendering = true;
-            // 
-            // settings
-            // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackgroundImage = global::SRHDLauncher.Properties.Resources.additionalForm;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(906, 503);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.reinstallBtn);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.turnOffLauncher);
-            this.Controls.Add(this.Ubercharge);
-            this.Controls.Add(this.defaultSettings);
-            this.Controls.Add(this.saveState);
-            this.Controls.Add(this.restoreBackupMods);
-            this.Controls.Add(this.createBackupButton);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.fuckYou);
-            this.Controls.Add(this.pathToFile);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.checkHash);
-            this.Controls.Add(this.english);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.russian);
-            this.Controls.Add(this.thirdSet);
-            this.Controls.Add(this.secondSet);
-            this.Controls.Add(this.firstSet);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.closeWindow);
-            this.Controls.Add(this.minimizeWindow);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "settings";
-            this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.Load += new System.EventHandler(this.settings_Load);
-            this.Shown += new System.EventHandler(this.update_Shown);
-            this.Click += new System.EventHandler(this.settings_Click);
-            this.Leave += new System.EventHandler(this.settings_Leave);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.settings_MouseDown);
-            ((System.ComponentModel.ISupportInitialize)(this.closeWindow)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.minimizeWindow)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.firstSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.secondSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.thirdSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkHash)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fuckYou)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.createBackupButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.restoreBackupMods)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.saveState)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.defaultSettings)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.reinstallBtn)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(settings));
+			this.closeWindow = new System.Windows.Forms.PictureBox();
+			this.minimizeWindow = new System.Windows.Forms.PictureBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.firstSet = new System.Windows.Forms.PictureBox();
+			this.secondSet = new System.Windows.Forms.PictureBox();
+			this.thirdSet = new System.Windows.Forms.PictureBox();
+			this.russian = new System.Windows.Forms.CheckBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.label4 = new System.Windows.Forms.Label();
+			this.english = new System.Windows.Forms.CheckBox();
+			this.checkHash = new System.Windows.Forms.PictureBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.pathToFile = new System.Windows.Forms.TextBox();
+			this.fuckYou = new System.Windows.Forms.PictureBox();
+			this.label7 = new System.Windows.Forms.Label();
+			this.createBackupButton = new System.Windows.Forms.PictureBox();
+			this.restoreBackupMods = new System.Windows.Forms.PictureBox();
+			this.saveState = new System.Windows.Forms.PictureBox();
+			this.defaultSettings = new System.Windows.Forms.PictureBox();
+			this.Ubercharge = new System.Windows.Forms.CheckBox();
+			this.turnOffLauncher = new System.Windows.Forms.CheckBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+			this.label8 = new System.Windows.Forms.Label();
+			this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
+			this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+			this.reinstallBtn = new System.Windows.Forms.PictureBox();
+			this.pictureBox2 = new System.Windows.Forms.PictureBox();
+			this.label6 = new System.Windows.Forms.Label();
+			((System.ComponentModel.ISupportInitialize)(this.closeWindow)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.minimizeWindow)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.firstSet)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.secondSet)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.thirdSet)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.checkHash)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.fuckYou)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.createBackupButton)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.restoreBackupMods)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.saveState)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.defaultSettings)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.reinstallBtn)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+			this.SuspendLayout();
+			// 
+			// closeWindow
+			// 
+			this.closeWindow.BackgroundImage = global::SRHDLauncher.Properties.Resources.uniTopBackground;
+			this.closeWindow.Image = ((System.Drawing.Image)(resources.GetObject("closeWindow.Image")));
+			this.closeWindow.Location = new System.Drawing.Point(857, 55);
+			this.closeWindow.Name = "closeWindow";
+			this.closeWindow.Size = new System.Drawing.Size(24, 24);
+			this.closeWindow.TabIndex = 16;
+			this.closeWindow.TabStop = false;
+			this.closeWindow.Click += new System.EventHandler(this.closeWindow_Click);
+			this.closeWindow.MouseDown += new System.Windows.Forms.MouseEventHandler(this.closeWindow_MouseDown);
+			this.closeWindow.MouseUp += new System.Windows.Forms.MouseEventHandler(this.closeWindow_MouseUp);
+			// 
+			// minimizeWindow
+			// 
+			this.minimizeWindow.BackgroundImage = global::SRHDLauncher.Properties.Resources.uniTopBackground;
+			this.minimizeWindow.Image = global::SRHDLauncher.Properties.Resources._2SubA;
+			this.minimizeWindow.Location = new System.Drawing.Point(827, 55);
+			this.minimizeWindow.Name = "minimizeWindow";
+			this.minimizeWindow.Size = new System.Drawing.Size(24, 24);
+			this.minimizeWindow.TabIndex = 15;
+			this.minimizeWindow.TabStop = false;
+			this.minimizeWindow.MouseDown += new System.Windows.Forms.MouseEventHandler(this.minimizeWindow_MouseDown);
+			this.minimizeWindow.MouseUp += new System.Windows.Forms.MouseEventHandler(this.minimizeWindow_MouseUp);
+			// 
+			// label2
+			// 
+			this.label2.Cursor = System.Windows.Forms.Cursors.AppStarting;
+			this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.label2.Image = global::SRHDLauncher.Properties.Resources.background_universe_form;
+			this.label2.Location = new System.Drawing.Point(96, 106);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(191, 17);
+			this.label2.TabIndex = 18;
+			this.label2.Text = "Комплектация модов";
+			this.label2.UseCompatibleTextRendering = true;
+			// 
+			// firstSet
+			// 
+			this.firstSet.BackgroundImage = global::SRHDLauncher.Properties.Resources.background_universe_form;
+			this.firstSet.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+			this.firstSet.Image = global::SRHDLauncher.Properties.Resources._1_not_active;
+			this.firstSet.Location = new System.Drawing.Point(96, 126);
+			this.firstSet.Name = "firstSet";
+			this.firstSet.Size = new System.Drawing.Size(27, 20);
+			this.firstSet.TabIndex = 20;
+			this.firstSet.TabStop = false;
+			this.firstSet.Click += new System.EventHandler(this.firstSet_Click);
+			this.firstSet.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown_2);
+			this.firstSet.MouseUp += new System.Windows.Forms.MouseEventHandler(this.firstSet_MouseUp);
+			// 
+			// secondSet
+			// 
+			this.secondSet.BackgroundImage = global::SRHDLauncher.Properties.Resources.background_universe_form;
+			this.secondSet.Image = global::SRHDLauncher.Properties.Resources._2_not_active;
+			this.secondSet.Location = new System.Drawing.Point(129, 126);
+			this.secondSet.Name = "secondSet";
+			this.secondSet.Size = new System.Drawing.Size(27, 20);
+			this.secondSet.TabIndex = 21;
+			this.secondSet.TabStop = false;
+			this.secondSet.Click += new System.EventHandler(this.secondSet_Click);
+			this.secondSet.MouseDown += new System.Windows.Forms.MouseEventHandler(this.secondSet_MouseDown);
+			this.secondSet.MouseUp += new System.Windows.Forms.MouseEventHandler(this.secondSet_MouseUp);
+			// 
+			// thirdSet
+			// 
+			this.thirdSet.BackgroundImage = global::SRHDLauncher.Properties.Resources.background_universe_form;
+			this.thirdSet.Image = global::SRHDLauncher.Properties.Resources._3_not_active;
+			this.thirdSet.Location = new System.Drawing.Point(162, 126);
+			this.thirdSet.Name = "thirdSet";
+			this.thirdSet.Size = new System.Drawing.Size(27, 20);
+			this.thirdSet.TabIndex = 22;
+			this.thirdSet.TabStop = false;
+			this.thirdSet.Click += new System.EventHandler(this.thirdSet_Click);
+			this.thirdSet.MouseDown += new System.Windows.Forms.MouseEventHandler(this.thirdSet_MouseDown);
+			this.thirdSet.MouseUp += new System.Windows.Forms.MouseEventHandler(this.thirdSet_MouseUp);
+			// 
+			// russian
+			// 
+			this.russian.AutoSize = true;
+			this.russian.Location = new System.Drawing.Point(88, 238);
+			this.russian.Name = "russian";
+			this.russian.Size = new System.Drawing.Size(15, 14);
+			this.russian.TabIndex = 23;
+			this.russian.UseVisualStyleBackColor = true;
+			this.russian.CheckedChanged += new System.EventHandler(this.russian_CheckedChanged);
+			this.russian.Click += new System.EventHandler(this.russian_Click);
+			// 
+			// label1
+			// 
+			this.label1.BackColor = System.Drawing.Color.Transparent;
+			this.label1.Cursor = System.Windows.Forms.Cursors.AppStarting;
+			this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.label1.Location = new System.Drawing.Point(249, 237);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(64, 20);
+			this.label1.TabIndex = 25;
+			this.label1.Text = "English";
+			this.label1.UseCompatibleTextRendering = true;
+			// 
+			// label4
+			// 
+			this.label4.BackColor = System.Drawing.Color.Transparent;
+			this.label4.Cursor = System.Windows.Forms.Cursors.AppStarting;
+			this.label4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.label4.Location = new System.Drawing.Point(101, 236);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(65, 21);
+			this.label4.TabIndex = 26;
+			this.label4.Text = "Русский";
+			this.label4.UseCompatibleTextRendering = true;
+			// 
+			// english
+			// 
+			this.english.AutoSize = true;
+			this.english.Location = new System.Drawing.Point(235, 238);
+			this.english.Name = "english";
+			this.english.Size = new System.Drawing.Size(15, 14);
+			this.english.TabIndex = 27;
+			this.english.UseVisualStyleBackColor = true;
+			this.english.CheckedChanged += new System.EventHandler(this.english_CheckedChanged);
+			this.english.Click += new System.EventHandler(this.english_Click);
+			// 
+			// checkHash
+			// 
+			this.checkHash.BackgroundImage = global::SRHDLauncher.Properties.Resources.background_universe_form;
+			this.checkHash.Image = global::SRHDLauncher.Properties.Resources._2AutoA;
+			this.checkHash.Location = new System.Drawing.Point(195, 328);
+			this.checkHash.Name = "checkHash";
+			this.checkHash.Size = new System.Drawing.Size(43, 34);
+			this.checkHash.TabIndex = 28;
+			this.checkHash.TabStop = false;
+			this.checkHash.Click += new System.EventHandler(this.checkHash_Click);
+			this.checkHash.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkHash_MouseClick);
+			this.checkHash.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown_3);
+			this.checkHash.MouseUp += new System.Windows.Forms.MouseEventHandler(this.checkHash_MouseUp);
+			// 
+			// label5
+			// 
+			this.label5.BackColor = System.Drawing.Color.Transparent;
+			this.label5.Cursor = System.Windows.Forms.Cursors.AppStarting;
+			this.label5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.label5.Location = new System.Drawing.Point(141, 305);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(186, 20);
+			this.label5.TabIndex = 29;
+			this.label5.Text = "Сменить тип запуска";
+			this.label5.UseCompatibleTextRendering = true;
+			this.label5.Click += new System.EventHandler(this.label5_Click);
+			// 
+			// pathToFile
+			// 
+			this.pathToFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(177)))), ((int)(((byte)(201)))), ((int)(((byte)(210)))));
+			this.pathToFile.Location = new System.Drawing.Point(469, 114);
+			this.pathToFile.Name = "pathToFile";
+			this.pathToFile.ReadOnly = true;
+			this.pathToFile.Size = new System.Drawing.Size(382, 20);
+			this.pathToFile.TabIndex = 30;
+			this.pathToFile.TextChanged += new System.EventHandler(this.pathToFile_TextChanged);
+			// 
+			// fuckYou
+			// 
+			this.fuckYou.BackgroundImage = global::SRHDLauncher.Properties.Resources.background_universe_form;
+			this.fuckYou.Image = global::SRHDLauncher.Properties.Resources._2SC_RepareA;
+			this.fuckYou.Location = new System.Drawing.Point(469, 140);
+			this.fuckYou.Name = "fuckYou";
+			this.fuckYou.Size = new System.Drawing.Size(23, 20);
+			this.fuckYou.TabIndex = 32;
+			this.fuckYou.TabStop = false;
+			this.fuckYou.Click += new System.EventHandler(this.fuckYou_Click);
+			this.fuckYou.MouseDown += new System.Windows.Forms.MouseEventHandler(this.fuckYou_MouseDown);
+			this.fuckYou.MouseMove += new System.Windows.Forms.MouseEventHandler(this.fuckYou_MouseMove);
+			this.fuckYou.MouseUp += new System.Windows.Forms.MouseEventHandler(this.fuckYou_MouseUp);
+			// 
+			// label7
+			// 
+			this.label7.BackColor = System.Drawing.Color.Transparent;
+			this.label7.Cursor = System.Windows.Forms.Cursors.AppStarting;
+			this.label7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.label7.Location = new System.Drawing.Point(492, 141);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(192, 18);
+			this.label7.TabIndex = 33;
+			this.label7.Text = "Изменить";
+			this.label7.UseCompatibleTextRendering = true;
+			this.label7.Click += new System.EventHandler(this.label7_Click);
+			// 
+			// createBackupButton
+			// 
+			this.createBackupButton.Enabled = false;
+			this.createBackupButton.Image = ((System.Drawing.Image)(resources.GetObject("createBackupButton.Image")));
+			this.createBackupButton.Location = new System.Drawing.Point(484, 170);
+			this.createBackupButton.Name = "createBackupButton";
+			this.createBackupButton.Size = new System.Drawing.Size(247, 29);
+			this.createBackupButton.TabIndex = 41;
+			this.createBackupButton.TabStop = false;
+			this.createBackupButton.Click += new System.EventHandler(this.createBackupButton_Click);
+			this.createBackupButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.createBackupButton_MouseDown_1);
+			this.createBackupButton.MouseMove += new System.Windows.Forms.MouseEventHandler(this.createBackupButton_MouseMove);
+			this.createBackupButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.createBackupButton_MouseUp_1);
+			// 
+			// restoreBackupMods
+			// 
+			this.restoreBackupMods.Enabled = false;
+			this.restoreBackupMods.Image = ((System.Drawing.Image)(resources.GetObject("restoreBackupMods.Image")));
+			this.restoreBackupMods.Location = new System.Drawing.Point(484, 205);
+			this.restoreBackupMods.Name = "restoreBackupMods";
+			this.restoreBackupMods.Size = new System.Drawing.Size(247, 28);
+			this.restoreBackupMods.TabIndex = 42;
+			this.restoreBackupMods.TabStop = false;
+			this.restoreBackupMods.Click += new System.EventHandler(this.restoreBackupMods_Click_1);
+			this.restoreBackupMods.MouseDown += new System.Windows.Forms.MouseEventHandler(this.restoreBackupMods_MouseDown_1);
+			this.restoreBackupMods.MouseUp += new System.Windows.Forms.MouseEventHandler(this.restoreBackupMods_MouseUp_1);
+			// 
+			// saveState
+			// 
+			this.saveState.Enabled = false;
+			this.saveState.Image = ((System.Drawing.Image)(resources.GetObject("saveState.Image")));
+			this.saveState.Location = new System.Drawing.Point(81, 170);
+			this.saveState.Name = "saveState";
+			this.saveState.Size = new System.Drawing.Size(246, 29);
+			this.saveState.TabIndex = 43;
+			this.saveState.TabStop = false;
+			this.saveState.Click += new System.EventHandler(this.saveState_Click);
+			this.saveState.MouseDown += new System.Windows.Forms.MouseEventHandler(this.saveState_MouseDown);
+			this.saveState.MouseUp += new System.Windows.Forms.MouseEventHandler(this.saveState_MouseUp_1);
+			// 
+			// defaultSettings
+			// 
+			this.defaultSettings.Enabled = false;
+			this.defaultSettings.Image = ((System.Drawing.Image)(resources.GetObject("defaultSettings.Image")));
+			this.defaultSettings.Location = new System.Drawing.Point(81, 205);
+			this.defaultSettings.Name = "defaultSettings";
+			this.defaultSettings.Size = new System.Drawing.Size(247, 28);
+			this.defaultSettings.TabIndex = 44;
+			this.defaultSettings.TabStop = false;
+			this.defaultSettings.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown_4);
+			this.defaultSettings.MouseUp += new System.Windows.Forms.MouseEventHandler(this.test_MouseUp);
+			// 
+			// Ubercharge
+			// 
+			this.Ubercharge.AutoSize = true;
+			this.Ubercharge.Location = new System.Drawing.Point(195, 129);
+			this.Ubercharge.Name = "Ubercharge";
+			this.Ubercharge.Size = new System.Drawing.Size(15, 14);
+			this.Ubercharge.TabIndex = 45;
+			this.toolTip2.SetToolTip(this.Ubercharge, "Активно - будет означать что при выборе разных комплектаций основной ModCFG файл " +
+		"будет заменяться уже существующими пресетами");
+			this.Ubercharge.UseVisualStyleBackColor = true;
+			this.Ubercharge.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+			this.Ubercharge.Click += new System.EventHandler(this.Ubercharge_Click);
+			// 
+			// turnOffLauncher
+			// 
+			this.turnOffLauncher.AutoSize = true;
+			this.turnOffLauncher.Location = new System.Drawing.Point(463, 307);
+			this.turnOffLauncher.Name = "turnOffLauncher";
+			this.turnOffLauncher.Size = new System.Drawing.Size(15, 14);
+			this.turnOffLauncher.TabIndex = 46;
+			this.turnOffLauncher.UseVisualStyleBackColor = true;
+			this.turnOffLauncher.CheckedChanged += new System.EventHandler(this.replace_CheckedChanged);
+			this.turnOffLauncher.Click += new System.EventHandler(this.turnOffLauncher_Click);
+			// 
+			// label3
+			// 
+			this.label3.BackColor = System.Drawing.Color.Transparent;
+			this.label3.Cursor = System.Windows.Forms.Cursors.AppStarting;
+			this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.label3.ForeColor = System.Drawing.Color.Black;
+			this.label3.Location = new System.Drawing.Point(209, 128);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(66, 20);
+			this.label3.TabIndex = 47;
+			this.label3.Text = "Активно";
+			this.toolTip1.SetToolTip(this.label3, "Активно - будет означать что при выборе разных комплектаций основной ModCFG файл " +
+		"будет заменяться уже существующими пресетами");
+			this.label3.UseCompatibleTextRendering = true;
+			// 
+			// label8
+			// 
+			this.label8.Cursor = System.Windows.Forms.Cursors.AppStarting;
+			this.label8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.label8.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.label8.Image = global::SRHDLauncher.Properties.Resources.background_universe_form;
+			this.label8.Location = new System.Drawing.Point(484, 305);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(309, 20);
+			this.label8.TabIndex = 49;
+			this.label8.Text = "Закрывать лаунчер при запуске игры";
+			this.label8.UseCompatibleTextRendering = true;
+			this.label8.Click += new System.EventHandler(this.label8_Click);
+			// 
+			// fileSystemWatcher1
+			// 
+			this.fileSystemWatcher1.EnableRaisingEvents = true;
+			this.fileSystemWatcher1.SynchronizingObject = this;
+			// 
+			// reinstallBtn
+			// 
+			this.reinstallBtn.BackColor = System.Drawing.Color.Transparent;
+			this.reinstallBtn.Enabled = false;
+			this.reinstallBtn.Image = ((System.Drawing.Image)(resources.GetObject("reinstallBtn.Image")));
+			this.reinstallBtn.Location = new System.Drawing.Point(484, 239);
+			this.reinstallBtn.Name = "reinstallBtn";
+			this.reinstallBtn.Size = new System.Drawing.Size(247, 32);
+			this.reinstallBtn.TabIndex = 50;
+			this.reinstallBtn.TabStop = false;
+			this.reinstallBtn.Click += new System.EventHandler(this.reinstallBtn_Click);
+			this.reinstallBtn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.reinstallBtn_MouseDown);
+			this.reinstallBtn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.reinstallBtn_MouseUp);
+			// 
+			// pictureBox2
+			// 
+			this.pictureBox2.BackgroundImage = global::SRHDLauncher.Properties.Resources.background_universe_form;
+			this.pictureBox2.Image = global::SRHDLauncher.Properties.Resources._2SC_RepareA;
+			this.pictureBox2.Location = new System.Drawing.Point(469, 423);
+			this.pictureBox2.Name = "pictureBox2";
+			this.pictureBox2.Size = new System.Drawing.Size(23, 20);
+			this.pictureBox2.TabIndex = 51;
+			this.pictureBox2.TabStop = false;
+			this.pictureBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseDown);
+			this.pictureBox2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseUp);
+			// 
+			// label6
+			// 
+			this.label6.BackColor = System.Drawing.Color.Transparent;
+			this.label6.Cursor = System.Windows.Forms.Cursors.AppStarting;
+			this.label6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+			this.label6.Location = new System.Drawing.Point(491, 424);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(253, 18);
+			this.label6.TabIndex = 52;
+			this.label6.Text = "Cбросить настройки лаунчера";
+			this.label6.UseCompatibleTextRendering = true;
+			// 
+			// settings
+			// 
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+			this.BackgroundImage = global::SRHDLauncher.Properties.Resources.additionalForm;
+			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+			this.ClientSize = new System.Drawing.Size(906, 503);
+			this.Controls.Add(this.label6);
+			this.Controls.Add(this.pictureBox2);
+			this.Controls.Add(this.reinstallBtn);
+			this.Controls.Add(this.label8);
+			this.Controls.Add(this.label3);
+			this.Controls.Add(this.turnOffLauncher);
+			this.Controls.Add(this.Ubercharge);
+			this.Controls.Add(this.defaultSettings);
+			this.Controls.Add(this.saveState);
+			this.Controls.Add(this.restoreBackupMods);
+			this.Controls.Add(this.createBackupButton);
+			this.Controls.Add(this.label7);
+			this.Controls.Add(this.fuckYou);
+			this.Controls.Add(this.pathToFile);
+			this.Controls.Add(this.label5);
+			this.Controls.Add(this.checkHash);
+			this.Controls.Add(this.english);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.label1);
+			this.Controls.Add(this.russian);
+			this.Controls.Add(this.thirdSet);
+			this.Controls.Add(this.secondSet);
+			this.Controls.Add(this.firstSet);
+			this.Controls.Add(this.label2);
+			this.Controls.Add(this.closeWindow);
+			this.Controls.Add(this.minimizeWindow);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.Name = "settings";
+			this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+			this.Load += new System.EventHandler(this.settings_Load);
+			this.Shown += new System.EventHandler(this.update_Shown);
+			this.Click += new System.EventHandler(this.settings_Click);
+			this.Leave += new System.EventHandler(this.settings_Leave);
+			this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.settings_MouseDown);
+			((System.ComponentModel.ISupportInitialize)(this.closeWindow)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.minimizeWindow)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.firstSet)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.secondSet)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.thirdSet)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.checkHash)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.fuckYou)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.createBackupButton)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.restoreBackupMods)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.saveState)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.defaultSettings)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.reinstallBtn)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -1516,7 +1516,7 @@ namespace SRHDLauncher
 		private void pictureBox2_MouseUp(object sender, MouseEventArgs e)
 		{
 			pictureBox2.Image = Resources._2SC_RepareA;
-			string s =  Path.GetTempPath() + "SRHDLauncherSettings.txt";
+			string s = Path.GetTempPath() + "SRHDLauncherSettings.txt";
 			if (File.Exists(s))
 			{
 				File.Delete(s);

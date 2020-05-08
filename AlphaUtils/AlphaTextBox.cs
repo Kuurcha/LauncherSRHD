@@ -10,17 +10,17 @@ namespace AlphaUtils
 	{
 		private delegate void SMDel(ref Message M);
 
-		private class AlphaPanel : Panel
+		public class AlphaPanel : Panel
 		{
 			private delegate void SMDel(ref Message M);
 
-			private AlphaTextBox MasterTb;
+			public AlphaTextBox MasterTb;
 
 			private Utilities PUtils;
 
-			protected internal Delegate ToMasterDel;
+			protected Delegate ToMasterDel;
 
-			protected internal AlphaPanel(AlphaTextBox Master)
+			public AlphaPanel(AlphaTextBox Master)
 			{
 				MasterTb = Master;
 				base.Size = Master.Size;
@@ -83,13 +83,13 @@ namespace AlphaUtils
 
 		private bool SelectingText;
 
-		private Color InternalAlphaBackColor;
+		private Color publicAlphaBackColor;
 
-		private bool InternalBGSet;
+		private bool publicBGSet;
 
-		private int InternalAlphaAmount;
+		private int publicAlphaAmount;
 
-		protected internal Delegate STClientDel;
+		protected Delegate STClientDel;
 
 		public override Color BackColor
 		{
@@ -99,7 +99,7 @@ namespace AlphaUtils
 			}
 			set
 			{
-				if (!InternalBGSet)
+				if (!publicBGSet)
 				{
 					base.BackColor = Color.Transparent;
 				}
@@ -127,11 +127,11 @@ namespace AlphaUtils
 		[Description("The Alpha Amount, or transparency amount, applied to the background.")]
 		[Browsable(true)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-		public int AlphaAmount
+		protected int AlphaAmount
 		{
 			get
 			{
-				return InternalAlphaAmount;
+				return publicAlphaAmount;
 			}
 			set
 			{
@@ -139,7 +139,7 @@ namespace AlphaUtils
 				{
 					throw new Exception("AlphaAmount must be between 0 and 255!");
 				}
-				InternalAlphaAmount = value;
+				publicAlphaAmount = value;
 				UpdateRegion();
 			}
 		}
@@ -148,20 +148,20 @@ namespace AlphaUtils
 		[Description("The visible background color for the AlphaTextBox.")]
 		[Browsable(true)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-		public Color AlphaBackColor
+		protected Color AlphaBackColor
 		{
 			get
 			{
-				return InternalAlphaBackColor;
+				return publicAlphaBackColor;
 			}
 			set
 			{
-				InternalAlphaBackColor = value;
+				publicAlphaBackColor = value;
 				UpdateRegion();
 			}
 		}
 
-		public AlphaTextBox()
+		protected AlphaTextBox()
 		{
 			InitializeComponent();
 		}
@@ -172,7 +172,7 @@ namespace AlphaUtils
 			components = new System.ComponentModel.Container();
 			STClientDel = new AlphaUtils.AlphaTextBox.SMDel(DefWndProc);
 			TBUtils = new AlphaUtils.Utilities(STClientDel, this);
-			InternalBGSet = false;
+			publicBGSet = false;
 			DrawCaret = false;
 			SelectingText = false;
 			APanel = new AlphaUtils.AlphaTextBox.AlphaPanel(this);
@@ -185,7 +185,7 @@ namespace AlphaUtils
 
 		private Bitmap CaptureClientRegion()
 		{
-			InternalBGSet = true;
+			publicBGSet = true;
 			Bitmap bitmap = new Bitmap(base.Width, base.Height);
 			BackColor = AlphaBackColor;
 			Graphics graphics = Graphics.FromImage(bitmap);
@@ -193,7 +193,7 @@ namespace AlphaUtils
 			TBUtils.SendMessageToMaster(TBUtils.WM_PRINT, hdc, (IntPtr)(TBUtils.PRF_CLIENT | TBUtils.PRF_ERASEBKGND), -1);
 			graphics.ReleaseHdc(hdc);
 			graphics.Dispose();
-			InternalBGSet = false;
+			publicBGSet = false;
 			BackColor = Color.Transparent;
 			return bitmap;
 		}
@@ -317,7 +317,7 @@ namespace AlphaUtils
 
 		protected override void OnForeColorChanged(EventArgs e)
 		{
-			if (!InternalBGSet)
+			if (!publicBGSet)
 			{
 				base.OnForeColorChanged(e);
 				UpdateRegion();
@@ -425,7 +425,7 @@ namespace AlphaUtils
 			}
 		}
 
-		public Bitmap GetScreenShot()
+		protected Bitmap GetScreenShot()
 		{
 			Bitmap bitmap = CaptureNonClientRegion();
 			Bitmap bitmap2 = TBUtils.MapColors(AlphaBackColor, Color.FromArgb(AlphaAmount, AlphaBackColor), CaptureClientRegion(), Dspse: true);

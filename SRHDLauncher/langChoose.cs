@@ -36,10 +36,10 @@ namespace SRHDLauncher
 		private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
 
 		[DllImport("user32", CharSet = CharSet.Auto)]
-		internal static extern bool PostMessage(IntPtr hWnd, uint Msg, uint WParam, uint LParam);
+		public static extern bool PostMessage(IntPtr hWnd, uint Msg, uint WParam, uint LParam);
 
 		[DllImport("user32", CharSet = CharSet.Auto)]
-		internal static extern bool ReleaseCapture();
+		public static extern bool ReleaseCapture();
 
 		public langChoose(string message, mainform form1)
 		{

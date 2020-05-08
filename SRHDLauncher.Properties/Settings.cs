@@ -6,7 +6,7 @@ namespace SRHDLauncher.Properties
 {
 	[CompilerGenerated]
 	[GeneratedCode("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.4.0.0")]
-	internal sealed class Settings : ApplicationSettingsBase
+	public sealed class Settings : ApplicationSettingsBase
 	{
 		private static Settings defaultInstance = (Settings)SettingsBase.Synchronized(new Settings());
 

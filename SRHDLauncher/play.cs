@@ -82,10 +82,10 @@ namespace SRHDLauncher
 		private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
 
 		[DllImport("user32", CharSet = CharSet.Auto)]
-		internal static extern bool PostMessage(IntPtr hWnd, uint Msg, uint WParam, uint LParam);
+		public static extern bool PostMessage(IntPtr hWnd, uint Msg, uint WParam, uint LParam);
 
 		[DllImport("user32", CharSet = CharSet.Auto)]
-		internal static extern bool ReleaseCapture();
+		public static extern bool ReleaseCapture();
 
 		public void setRu()
 		{
@@ -135,7 +135,7 @@ namespace SRHDLauncher
 		}
 
 		private void settings_Load(object sender, EventArgs e)
-		{ 
+		{
 		}
 
 		private void pictureBox1_MouseDown(object sender, MouseEventArgs e)

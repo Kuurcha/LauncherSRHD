@@ -12,14 +12,14 @@ namespace SRHDLauncher.Properties
 	[GeneratedCode("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
 	[DebuggerNonUserCode]
 	[CompilerGenerated]
-	internal class Resources
+	public class Resources
 	{
 		private static ResourceManager resourceMan;
 
 		private static CultureInfo resourceCulture;
 
 		[EditorBrowsable(EditorBrowsableState.Advanced)]
-		internal static ResourceManager ResourceManager
+		public static ResourceManager ResourceManager
 		{
 			get
 			{
@@ -32,7 +32,7 @@ namespace SRHDLauncher.Properties
 		}
 
 		[EditorBrowsable(EditorBrowsableState.Advanced)]
-		internal static CultureInfo Culture
+		public static CultureInfo Culture
 		{
 			get
 			{
@@ -44,7 +44,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _1_acitve
+		public static Bitmap _1_acitve
 		{
 			get
 			{
@@ -52,7 +52,7 @@ namespace SRHDLauncher.Properties
 				return (Bitmap)@object;
 			}
 		}
-		internal static Bitmap modnaya_trapetsaya_not_pressed
+		public static Bitmap modnaya_trapetsaya_not_pressed
 		{
 			get
 			{
@@ -60,7 +60,7 @@ namespace SRHDLauncher.Properties
 				return (Bitmap)@object;
 			}
 		}
-		internal static Bitmap modnaya_trapetsaya_pressed
+		public static Bitmap modnaya_trapetsaya_pressed
 		{
 			get
 			{
@@ -68,7 +68,7 @@ namespace SRHDLauncher.Properties
 				return (Bitmap)@object;
 			}
 		}
-		internal static Bitmap _1_not_active
+		public static Bitmap _1_not_active
 		{
 			get
 			{
@@ -76,7 +76,7 @@ namespace SRHDLauncher.Properties
 				return (Bitmap)@object;
 			}
 		}
-		internal static Bitmap _Disk
+		public static Bitmap _Disk
 		{
 			get
 			{
@@ -84,7 +84,7 @@ namespace SRHDLauncher.Properties
 				return (Bitmap)@object;
 			}
 		}
-		internal static Bitmap _2_active
+		public static Bitmap _2_active
 		{
 			get
 			{
@@ -93,7 +93,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2_not_active
+		public static Bitmap _2_not_active
 		{
 			get
 			{
@@ -102,7 +102,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2AutoA
+		public static Bitmap _2AutoA
 		{
 			get
 			{
@@ -111,7 +111,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2AutoD
+		public static Bitmap _2AutoD
 		{
 			get
 			{
@@ -120,7 +120,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2AutoN
+		public static Bitmap _2AutoN
 		{
 			get
 			{
@@ -129,7 +129,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2CloseA
+		public static Bitmap _2CloseA
 		{
 			get
 			{
@@ -138,7 +138,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2CloseD
+		public static Bitmap _2CloseD
 		{
 			get
 			{
@@ -147,7 +147,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2ContinueA
+		public static Bitmap _2ContinueA
 		{
 			get
 			{
@@ -156,7 +156,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2ContinueD
+		public static Bitmap _2ContinueD
 		{
 			get
 			{
@@ -165,7 +165,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2ContinueH
+		public static Bitmap _2ContinueH
 		{
 			get
 			{
@@ -174,7 +174,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2CrossA
+		public static Bitmap _2CrossA
 		{
 			get
 			{
@@ -183,7 +183,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2CrossD
+		public static Bitmap _2CrossD
 		{
 			get
 			{
@@ -192,7 +192,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2ExitA
+		public static Bitmap _2ExitA
 		{
 			get
 			{
@@ -201,7 +201,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2ExitD
+		public static Bitmap _2ExitD
 		{
 			get
 			{
@@ -210,7 +210,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2HelpA
+		public static Bitmap _2HelpA
 		{
 			get
 			{
@@ -219,7 +219,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2HelpD
+		public static Bitmap _2HelpD
 		{
 			get
 			{
@@ -228,7 +228,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2InfoA
+		public static Bitmap _2InfoA
 		{
 			get
 			{
@@ -237,7 +237,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2InfoD
+		public static Bitmap _2InfoD
 		{
 			get
 			{
@@ -246,7 +246,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2NewsD
+		public static Bitmap _2NewsD
 		{
 			get
 			{
@@ -255,7 +255,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2NewsN
+		public static Bitmap _2NewsN
 		{
 			get
 			{
@@ -264,7 +264,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2OkA
+		public static Bitmap _2OkA
 		{
 			get
 			{
@@ -273,7 +273,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2OkD
+		public static Bitmap _2OkD
 		{
 			get
 			{
@@ -282,7 +282,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2OkEmpty
+		public static Bitmap _2OkEmpty
 		{
 			get
 			{
@@ -291,7 +291,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2OkH
+		public static Bitmap _2OkH
 		{
 			get
 			{
@@ -300,7 +300,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2OptionsA
+		public static Bitmap _2OptionsA
 		{
 			get
 			{
@@ -309,7 +309,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2OptionsD
+		public static Bitmap _2OptionsD
 		{
 			get
 			{
@@ -318,7 +318,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2SaveH
+		public static Bitmap _2SaveH
 		{
 			get
 			{
@@ -327,7 +327,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2SC_RepareA
+		public static Bitmap _2SC_RepareA
 		{
 			get
 			{
@@ -336,7 +336,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2SC_RepareD
+		public static Bitmap _2SC_RepareD
 		{
 			get
 			{
@@ -345,7 +345,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2ScanerD
+		public static Bitmap _2ScanerD
 		{
 			get
 			{
@@ -354,7 +354,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2ScanerH
+		public static Bitmap _2ScanerH
 		{
 			get
 			{
@@ -363,7 +363,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2SettingsA
+		public static Bitmap _2SettingsA
 		{
 			get
 			{
@@ -372,7 +372,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2SettingsD
+		public static Bitmap _2SettingsD
 		{
 			get
 			{
@@ -381,7 +381,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2SmallNewsD
+		public static Bitmap _2SmallNewsD
 		{
 			get
 			{
@@ -390,7 +390,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2SmallNewsN
+		public static Bitmap _2SmallNewsN
 		{
 			get
 			{
@@ -399,7 +399,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2SubA
+		public static Bitmap _2SubA
 		{
 			get
 			{
@@ -408,7 +408,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2SubD
+		public static Bitmap _2SubD
 		{
 			get
 			{
@@ -417,7 +417,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _2SubN
+		public static Bitmap _2SubN
 		{
 			get
 			{
@@ -426,7 +426,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _3_not_active
+		public static Bitmap _3_not_active
 		{
 			get
 			{
@@ -435,7 +435,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap _3active
+		public static Bitmap _3active
 		{
 			get
 			{
@@ -444,7 +444,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap additionalForm
+		public static Bitmap additionalForm
 		{
 			get
 			{
@@ -453,7 +453,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap background
+		public static Bitmap background
 		{
 			get
 			{
@@ -462,7 +462,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap background_universe_form
+		public static Bitmap background_universe_form
 		{
 			get
 			{
@@ -471,7 +471,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap BG
+		public static Bitmap BG
 		{
 			get
 			{
@@ -480,7 +480,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap BGGreen
+		public static Bitmap BGGreen
 		{
 			get
 			{
@@ -489,7 +489,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap buttonBG
+		public static Bitmap buttonBG
 		{
 			get
 			{
@@ -498,19 +498,19 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static UnmanagedMemoryStream ButtonClick => ResourceManager.GetStream("ButtonClick", resourceCulture);
+		public static UnmanagedMemoryStream ButtonClick => ResourceManager.GetStream("ButtonClick", resourceCulture);
 
-		internal static UnmanagedMemoryStream ButtonEnter => ResourceManager.GetStream("ButtonEnter", resourceCulture);
+		public static UnmanagedMemoryStream ButtonEnter => ResourceManager.GetStream("ButtonEnter", resourceCulture);
 
-		internal static UnmanagedMemoryStream ButtonInfoClick => ResourceManager.GetStream("ButtonInfoClick", resourceCulture);
+		public static UnmanagedMemoryStream ButtonInfoClick => ResourceManager.GetStream("ButtonInfoClick", resourceCulture);
 
-		internal static UnmanagedMemoryStream ButtonInfoEnter => ResourceManager.GetStream("ButtonInfoEnter", resourceCulture);
+		public static UnmanagedMemoryStream ButtonInfoEnter => ResourceManager.GetStream("ButtonInfoEnter", resourceCulture);
 
-		internal static UnmanagedMemoryStream ButtonInfoLeave => ResourceManager.GetStream("ButtonInfoLeave", resourceCulture);
+		public static UnmanagedMemoryStream ButtonInfoLeave => ResourceManager.GetStream("ButtonInfoLeave", resourceCulture);
 
-		internal static UnmanagedMemoryStream ButtonLeave => ResourceManager.GetStream("ButtonLeave", resourceCulture);
+		public static UnmanagedMemoryStream ButtonLeave => ResourceManager.GetStream("ButtonLeave", resourceCulture);
 
-		internal static byte[] calc
+		public static byte[] calc
 		{
 			get
 			{
@@ -519,7 +519,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap createBackupEng
+		public static Bitmap createBackupEng
 		{
 			get
 			{
@@ -528,7 +528,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap createModSetRu
+		public static Bitmap createModSetRu
 		{
 			get
 			{
@@ -537,7 +537,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap createSettingsEng
+		public static Bitmap createSettingsEng
 		{
 			get
 			{
@@ -546,7 +546,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap createSettingsRu
+		public static Bitmap createSettingsRu
 		{
 			get
 			{
@@ -555,7 +555,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap Default
+		public static Bitmap Default
 		{
 			get
 			{
@@ -564,7 +564,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap discordImage
+		public static Bitmap discordImage
 		{
 			get
 			{
@@ -573,7 +573,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap downloadSR1HDLauncher
+		public static Bitmap downloadSR1HDLauncher
 		{
 			get
 			{
@@ -582,13 +582,13 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static string drawing => ResourceManager.GetString("drawing", resourceCulture);
+		public static string drawing => ResourceManager.GetString("drawing", resourceCulture);
 
-		internal static string launсherHash => ResourceManager.GetString("launсherHash", resourceCulture);
+		public static string launсherHash => ResourceManager.GetString("launсherHash", resourceCulture);
 
-		internal static string launсherHashСopy => ResourceManager.GetString("launсherHashСopy", resourceCulture);
+		public static string launсherHashСopy => ResourceManager.GetString("launсherHashСopy", resourceCulture);
 
-		internal static byte[] logo
+		public static byte[] logo
 		{
 			get
 			{
@@ -597,7 +597,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap messageBox
+		public static Bitmap messageBox
 		{
 			get
 			{
@@ -606,7 +606,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap messageBoxBackground
+		public static Bitmap messageBoxBackground
 		{
 			get
 			{
@@ -615,13 +615,13 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static string ModCFG => ResourceManager.GetString("ModCFG", resourceCulture);
+		public static string ModCFG => ResourceManager.GetString("ModCFG", resourceCulture);
 
-		internal static string ModCFGen => ResourceManager.GetString("ModCFGen", resourceCulture);
+		public static string ModCFGen => ResourceManager.GetString("ModCFGen", resourceCulture);
 
-		internal static string ModCFGru => ResourceManager.GetString("ModCFGru", resourceCulture);
+		public static string ModCFGru => ResourceManager.GetString("ModCFGru", resourceCulture);
 
-		internal static Bitmap modDB
+		public static Bitmap modDB
 		{
 			get
 			{
@@ -630,7 +630,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap pressed
+		public static Bitmap pressed
 		{
 			get
 			{
@@ -639,7 +639,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap pressedButtonExtraThicc
+		public static Bitmap pressedButtonExtraThicc
 		{
 			get
 			{
@@ -648,7 +648,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap pressedButtonExtraThicc1
+		public static Bitmap pressedButtonExtraThicc1
 		{
 			get
 			{
@@ -657,7 +657,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap pressedCreateBackupEng
+		public static Bitmap pressedCreateBackupEng
 		{
 			get
 			{
@@ -666,7 +666,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap pressedCreateModSetRu
+		public static Bitmap pressedCreateModSetRu
 		{
 			get
 			{
@@ -675,7 +675,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap pressedCreateSettingsEng
+		public static Bitmap pressedCreateSettingsEng
 		{
 			get
 			{
@@ -684,7 +684,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap pressedCreateSettingsRu
+		public static Bitmap pressedCreateSettingsRu
 		{
 			get
 			{
@@ -693,7 +693,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap pressedReinstalEng
+		public static Bitmap pressedReinstalEng
 		{
 			get
 			{
@@ -702,7 +702,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap pressedReinstallRu
+		public static Bitmap pressedReinstallRu
 		{
 			get
 			{
@@ -711,7 +711,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap pressedResotreBackupEng
+		public static Bitmap pressedResotreBackupEng
 		{
 			get
 			{
@@ -720,7 +720,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap pressedRestoreBackupRu
+		public static Bitmap pressedRestoreBackupRu
 		{
 			get
 			{
@@ -729,7 +729,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static byte[] pressedRestoreBackupRu1
+		public static byte[] pressedRestoreBackupRu1
 		{
 			get
 			{
@@ -738,7 +738,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap pressedRestoreSettingsEng
+		public static Bitmap pressedRestoreSettingsEng
 		{
 			get
 			{
@@ -747,7 +747,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap pressedRestoreSettingsRu
+		public static Bitmap pressedRestoreSettingsRu
 		{
 			get
 			{
@@ -756,7 +756,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static byte[] pressedRestoreSettingsRu1
+		public static byte[] pressedRestoreSettingsRu1
 		{
 			get
 			{
@@ -765,7 +765,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap rangerSmall
+		public static Bitmap rangerSmall
 		{
 			get
 			{
@@ -774,7 +774,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap rangerSmall1
+		public static Bitmap rangerSmall1
 		{
 			get
 			{
@@ -783,7 +783,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap reinstalEng
+		public static Bitmap reinstalEng
 		{
 			get
 			{
@@ -792,7 +792,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap reinstallRu
+		public static Bitmap reinstallRu
 		{
 			get
 			{
@@ -801,7 +801,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap resotreBackupEng
+		public static Bitmap resotreBackupEng
 		{
 			get
 			{
@@ -810,7 +810,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap restoreBackupRu
+		public static Bitmap restoreBackupRu
 		{
 			get
 			{
@@ -819,7 +819,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap restoreSettingsEng
+		public static Bitmap restoreSettingsEng
 		{
 			get
 			{
@@ -828,7 +828,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap restoreSettingsRu
+		public static Bitmap restoreSettingsRu
 		{
 			get
 			{
@@ -837,7 +837,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static byte[] restoreSettingsRu1
+		public static byte[] restoreSettingsRu1
 		{
 			get
 			{
@@ -846,7 +846,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap staticImage
+		public static Bitmap staticImage
 		{
 			get
 			{
@@ -855,9 +855,9 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static string styles => ResourceManager.GetString("styles", resourceCulture);
+		public static string styles => ResourceManager.GetString("styles", resourceCulture);
 
-		internal static byte[] UBCalculator
+		public static byte[] UBCalculator
 		{
 			get
 			{
@@ -866,7 +866,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap uniTopBackground
+		public static Bitmap uniTopBackground
 		{
 			get
 			{
@@ -875,7 +875,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap universe_logo
+		public static Bitmap universe_logo
 		{
 			get
 			{
@@ -884,7 +884,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap unpressedButtonExtraThicc
+		public static Bitmap unpressedButtonExtraThicc
 		{
 			get
 			{
@@ -893,7 +893,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static byte[] updaterFont1
+		public static byte[] updaterFont1
 		{
 			get
 			{
@@ -902,7 +902,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap Безымянный
+		public static Bitmap Безымянный
 		{
 			get
 			{
@@ -911,7 +911,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap СУКА_КАРТИНКА
+		public static Bitmap СУКА_КАРТИНКА
 		{
 			get
 			{
@@ -920,7 +920,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal static Bitmap чорнота
+		public static Bitmap чорнота
 		{
 			get
 			{
@@ -929,7 +929,7 @@ namespace SRHDLauncher.Properties
 			}
 		}
 
-		internal Resources()
+		public Resources()
 		{
 		}
 	}

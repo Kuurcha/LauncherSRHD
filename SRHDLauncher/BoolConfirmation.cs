@@ -6,9 +6,9 @@ using System.Windows.Forms;
 
 namespace SRHDLauncher
 {
-	internal static class BoolConfirmation
+	public static class BoolConfirmation
 	{
-	
+
 		public static bool SetPath(ref string downloadPath)
 		{
 			bool flag = false;
@@ -78,7 +78,7 @@ namespace SRHDLauncher
 			return Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
 		}
 
-		internal static bool checkIfUpdateIsRequired(string path, string URI,  update updateForm, mainform mainMenuForm)
+		public static bool checkIfUpdateIsRequired(string path, string URI, update updateForm, mainform mainMenuForm)
 		{
 			bool result = false;
 			bool flag = false;
@@ -136,11 +136,11 @@ namespace SRHDLauncher
 					}
 					if (flag && File.Exists(path2))
 					{
-						
+
 					}
 					result = (flag);
 				}
-				else {	result = true; }
+				else { result = true; }
 				File.Delete(path3);
 			}
 			catch (Exception)
@@ -148,7 +148,7 @@ namespace SRHDLauncher
 			}
 			return result;
 		}
-	
+
 		/// <summary>
 		/// Метод, для проверки необходимо ли лаунчеру обновлять предложение
 		/// </summary>
@@ -161,13 +161,13 @@ namespace SRHDLauncher
 		/// <param name="sizeDiffers"></param>
 		/// <param name="info"></param>
 		/// <returns>Необходимо ли обновлять приложение</returns>
-		internal static bool checkIfUpdateIsRequired(string path, string URI, ref string message, update updateForm, mainform mainMenuForm, ref long updateBytes, ref bool sizeDiffers, ref string[] info)
+		public static bool checkIfUpdateIsRequired(string path, string URI, ref string message, update updateForm, mainform mainMenuForm, ref long updateBytes, ref bool sizeDiffers, ref string[] info)
 		{
 			bool result = false;
 			bool flag = false;
-			path = StringProcessing.StepUp(path);	
+			path = StringProcessing.StepUp(path);
 			string pathToVersionTxt = path + "\\Mods\\version.txt";
-			
+
 			string text = message;
 			try
 			{
@@ -232,7 +232,7 @@ namespace SRHDLauncher
 			return result;
 		}
 
-		internal static bool checkIfUpdateIsRequired(string path, string URI, string version, update updateForm, mainform mainMenuForm, ref long totalBytes)
+		public static bool checkIfUpdateIsRequired(string path, string URI, string version, update updateForm, mainform mainMenuForm, ref long totalBytes)
 		{
 			bool result = false;
 			string path2 = path + "\\tempIni.ini";
@@ -254,7 +254,7 @@ namespace SRHDLauncher
 			return result;
 		}
 
-		internal static bool checkIfUpdateIsRequired(string path, string URI, string version, update updateForm, mainform mainMenuForm, ref long total, ref string[] text)
+		public static bool checkIfUpdateIsRequired(string path, string URI, string version, update updateForm, mainform mainMenuForm, ref long total, ref string[] text)
 		{
 			bool result = false;
 			string path2 = path + "\\tempIni.ini";

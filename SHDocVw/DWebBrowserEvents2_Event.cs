@@ -3,8 +3,8 @@ using System.Runtime.InteropServices;
 
 namespace SHDocVw
 {
-	
-	public interface DWebBrowserEvents2_Event
-	{
-	}
+
+    public interface DWebBrowserEvents2_Event
+    {
+    }
 }

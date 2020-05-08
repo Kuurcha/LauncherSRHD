@@ -33,6 +33,7 @@ namespace SRHDLauncher
 
 		private static bool downloadInterrupted = false;
 
+		public static WebClient webClient = null;
 		public static bool getSetAbourt(bool set)
 		{
 			abortUpdate = set;
@@ -203,15 +204,18 @@ namespace SRHDLauncher
 				{
 					currentUpdateForm.progressBar.CustomText = currentMessage + "   " + num3 + "MB of " + num4 + "MB";
 				}
-				
-				currentUpdateForm.progressBar.Invoke((MethodInvoker)delegate {
-					// Running on the UI thread
-				
-					currentUpdateForm.progressBar.Value = Math.Min(int.Parse(Math.Truncate(d).ToString()), 100);
-				});
-				
-		     
+				if(currentUpdateForm.IsHandleCreated)
+				{
+					currentUpdateForm.progressBar.Invoke((MethodInvoker)delegate
+					{
+
+
+						currentUpdateForm.progressBar.Value = Math.Min(int.Parse(Math.Truncate(d).ToString()), 100);
+					});
+				}
+
 			}
+
 		}
 
 		private static void webClient_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)

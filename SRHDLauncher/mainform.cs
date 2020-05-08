@@ -76,9 +76,9 @@ namespace SRHDLauncher
 
 		public bool isModInstalled = false;
 
-		internal string imagePathRu;
+		string imagePathRu;
 
-		internal string imagePathEng;
+		string imagePathEng;
 
 		public bool oneWindowIsAlreadyLaunched = false;
 
@@ -92,9 +92,15 @@ namespace SRHDLauncher
 
 		public string executabePath = "";
 
-		internal bool firstTimeMode = true;
+		bool firstTimeMode = true;
 
 		public bool updateRequired = false;
+
+		public bool updateInProgress = false;
+
+		public bool abortEtoGreh = false;
+
+		public bool archiveBegun = false;
 
 		public long totalBytes = 1L;
 
@@ -105,13 +111,13 @@ namespace SRHDLauncher
 			"Дискорд сервер ЦР Полюс Мира",
 			"Настройки",
 			"Руководство",
-			"Выход", 
+			"Выход",
 			"Веб-сайт",
 			"Обновить лаунчер",
 			"Скачать HD-мод на Космические Рейнджеры 1"
 		};
 
-		private static string[] engButtons = 
+		private static string[] engButtons =
 		{
 			"Play",
 			"Update",
@@ -120,7 +126,7 @@ namespace SRHDLauncher
 			"Guide",
 			"Exit",
 			"Web-site",
-			"Update Launcher", 
+			"Update Launcher",
 			"Download HD mod for the Space Rangers 1"
 		};
 
@@ -338,10 +344,8 @@ namespace SRHDLauncher
 
 		private void OnClosing(object sender, CancelEventArgs cancelEventArgs)
 		{
-			if (updateForm != null)
-			{
-				if (updateForm.updateInProgress || updateForm.archiveBegun)
-				{
+			if (updateInProgress || archiveBegun)
+			{ 
 					string text = "Видимо автор малок если это сообщение появилось. Проблема в update.OnClosing, с языком";
 					if (Lang == "ru")
 					{
@@ -353,24 +357,26 @@ namespace SRHDLauncher
 					}
 					switch (MessageBox.Show(text, "", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
 					{
-					case DialogResult.Yes:
-						changeEnabledStatusButtons();
-						updateForm.abortEtoGreh = true;
-						updateForm = null;
-						ZipArchiveExtensions.setUpdateCancel(state: true);
-						setVariables(tempFilePath);
-						break;
-					case DialogResult.No:
-						updateRequired = true;
-						cancelEventArgs.Cancel = true;
-						break;
+						case DialogResult.Yes:
+							changeEnabledStatusButtons();					
+					
+							ZipArchiveExtensions.setUpdateCancel(true);
+							FileDownloader.getSetAbourt(true);
+							setVariables(tempFilePath);
+							break;
+						case DialogResult.No:
+							updateRequired = true;
+							cancelEventArgs.Cancel = true;
+							break;
 					}
 				}
-			}
+			
 			else
 			{
+				
 				setVariables(tempFilePath);
 			}
+			
 		}
 
 		public void RecreateConfig(string fileName)
@@ -459,7 +465,7 @@ namespace SRHDLauncher
 			if (flag)
 			{
 				play.Enabled = true;
-			}	
+			}
 			if (isPathCorrect)
 			{
 				checkUpdates.Enabled = true;
@@ -583,7 +589,7 @@ namespace SRHDLauncher
 				}
 				MessageBox.Show(str + "Rangers.exe", caption, MessageBoxButtons.OK, MessageBoxIcon.Hand);
 				isPathCorrect = BoolConfirmation.OpenDialog(ref executabePath);
-			
+
 				pathToFile = executabePath;
 				changeEnabledStatusButtons();
 			}
@@ -597,7 +603,7 @@ namespace SRHDLauncher
 
 		public void checkForUpdateMsg()
 		{
-			
+
 			string path = Path.GetTempPath() + "updateTest.txt";
 			string path2 = Path.GetTempPath() + "updateTest081.txt";
 			if (File.Exists(path2))
@@ -643,10 +649,10 @@ namespace SRHDLauncher
 		}
 
 		[DllImport("user32", CharSet = CharSet.Auto)]
-		internal static extern bool PostMessage(IntPtr hWnd, uint Msg, uint WParam, uint LParam);
+		static extern bool PostMessage(IntPtr hWnd, uint Msg, uint WParam, uint LParam);
 
 		[DllImport("user32", CharSet = CharSet.Auto)]
-		internal static extern bool ReleaseCapture();
+		static extern bool ReleaseCapture();
 
 		[DllImport("gdi32.dll", EntryPoint = "AddFontResourceW", SetLastError = true)]
 		public static extern int AddFontResource([In] [MarshalAs(UnmanagedType.LPWStr)] string lpFileName);
@@ -816,7 +822,7 @@ namespace SRHDLauncher
 
 		private void mainMenu_Load(object sender, EventArgs e)
 		{
-				if (Lang == "none")
+			if (Lang == "none")
 			{
 				changeVisibleState();
 				langChoose langChoose = new langChoose("", this);
@@ -840,9 +846,17 @@ namespace SRHDLauncher
 
 		public void RepeatUntilBusy(WebClient client)
 		{
-			while (client.IsBusy)
+			while (client!=null && client.IsBusy)
 			{
 				Application.DoEvents();
+				if (!updateInProgress)
+				{
+					if (abortEtoGreh)
+					{
+						client.CancelAsync();
+						client = null;
+					}
+				}
 			}
 		}
 
@@ -905,7 +919,7 @@ namespace SRHDLauncher
 			if (!launcherIsOutdated)
 			{
 				bool sizeDiffers = true;
-				updateRequired = BoolConfirmation.checkIfUpdateIsRequired(pathToFile, "https://drive.google.com/file/d/1jDScpEkq-mybtv4SNtL-rjyE-9wM4Uos/view?usp=sharing", ref message, null, this, ref totalBytes, ref sizeDiffers, ref info); 
+				updateRequired = BoolConfirmation.checkIfUpdateIsRequired(pathToFile, "https://drive.google.com/file/d/1jDScpEkq-mybtv4SNtL-rjyE-9wM4Uos/view?usp=sharing", ref message, null, this, ref totalBytes, ref sizeDiffers, ref info);
 				if (updateRequired)
 				{
 					if (updateForm != null) updateForm = null;
@@ -933,7 +947,7 @@ namespace SRHDLauncher
 			{
 				updLauncher();
 			}
-			
+
 		}
 
 		private void label1_Click(object sender, EventArgs e)
@@ -1039,10 +1053,10 @@ namespace SRHDLauncher
 				}
 				else
 				{
-					updateForm = new update(path, updateRequired, totalBytes, this, isModInstalled, info,  reisntall, SR1HD);
+					updateForm = new update(path, updateRequired, totalBytes, this, isModInstalled, info, reisntall, SR1HD);
 				}
-				
-			}	
+
+			}
 		}
 		public void updLauncher()
 		{
@@ -1136,8 +1150,8 @@ namespace SRHDLauncher
 						}
 					}
 					InitialiseFont();
-						string text2 = "";
-						bool sizeDiffers = false;
+					string text2 = "";
+					bool sizeDiffers = false;
 					updateRequired = BoolConfirmation.checkIfUpdateIsRequired(pathToFile, "https://drive.google.com/file/d/1jDScpEkq-mybtv4SNtL-rjyE-9wM4Uos/view?usp=sharing", ref message, null, this, ref totalBytes, ref sizeDiffers, ref info);
 					if (updateRequired && isPathCorrect)
 					{
@@ -1146,7 +1160,7 @@ namespace SRHDLauncher
 					}
 				}
 				SetStyle(ControlStyles.SupportsTransparentBackColor, value: true);
-				
+
 				if (myMessageBox != null)
 				{
 					myMessageBox.Activate();
@@ -1433,9 +1447,9 @@ namespace SRHDLauncher
             this.thoughtOfTheDayLbl = new System.Windows.Forms.Label();
             this.authors = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.updateLauncherPB = new System.Windows.Forms.PictureBox();
             this.downloadSR1HD = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.updateLauncherPB = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.button2 = new System.Windows.Forms.Button();
@@ -1449,9 +1463,9 @@ namespace SRHDLauncher
             this.checkUpdates = new System.Windows.Forms.PictureBox();
             this.Settings = new System.Windows.Forms.PictureBox();
             this.exit = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.updateLauncherPB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.downloadSR1HD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.updateLauncherPB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -1511,6 +1525,7 @@ namespace SRHDLauncher
             this.label3.TabIndex = 13;
             this.label3.Text = "Обновления";
             this.label3.UseCompatibleTextRendering = true;
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
@@ -1589,16 +1604,6 @@ namespace SRHDLauncher
             this.authors.Size = new System.Drawing.Size(0, 13);
             this.authors.TabIndex = 21;
             // 
-            // updateLauncherPB
-            // 
-            this.updateLauncherPB.BackColor = System.Drawing.Color.Transparent;
-            this.updateLauncherPB.Location = new System.Drawing.Point(658, 546);
-            this.updateLauncherPB.Name = "updateLauncherPB";
-            this.updateLauncherPB.Size = new System.Drawing.Size(44, 33);
-            this.updateLauncherPB.TabIndex = 38;
-            this.updateLauncherPB.TabStop = false;
-            this.updateLauncherPB.Click += new System.EventHandler(this.updateLauncherPB_Click);
-            // 
             // downloadSR1HD
             // 
             this.downloadSR1HD.BackColor = System.Drawing.Color.Transparent;
@@ -1625,6 +1630,16 @@ namespace SRHDLauncher
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             this.pictureBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseDown_1);
             this.pictureBox2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox2_MouseUp);
+            // 
+            // updateLauncherPB
+            // 
+            this.updateLauncherPB.BackColor = System.Drawing.Color.Transparent;
+            this.updateLauncherPB.Location = new System.Drawing.Point(658, 546);
+            this.updateLauncherPB.Name = "updateLauncherPB";
+            this.updateLauncherPB.Size = new System.Drawing.Size(44, 33);
+            this.updateLauncherPB.TabIndex = 38;
+            this.updateLauncherPB.TabStop = false;
+            this.updateLauncherPB.Click += new System.EventHandler(this.updateLauncherPB_Click);
             // 
             // label1
             // 
@@ -1800,7 +1815,7 @@ namespace SRHDLauncher
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.BackgroundImage = global::SRHDLauncher.Properties.Resources.BGGreen;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(903, 617);
             this.Controls.Add(this.pictureBox2);
@@ -1839,9 +1854,9 @@ namespace SRHDLauncher
             this.Load += new System.EventHandler(this.mainMenu_Load);
             this.Shown += new System.EventHandler(this.mainMenu_Shown);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mainMenu_MouseDown);
-            ((System.ComponentModel.ISupportInitialize)(this.updateLauncherPB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.downloadSR1HD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.updateLauncherPB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -1858,7 +1873,7 @@ namespace SRHDLauncher
 
 		private void updateLauncherPB_Click(object sender, EventArgs e)
 		{
-			if(launcherIsOutdated)
+			if (launcherIsOutdated)
 			{
 				updLauncher();
 			}
@@ -1868,13 +1883,24 @@ namespace SRHDLauncher
 				updateMsg = "Обновление не требуется";
 			}
 			MessageBox.Show(updateMsg);
+		}
+		
+		private void updateLauncherTB_Click(object sender, EventArgs e)
+		{
 
+		}
+		private void button3_Click(object sender, EventArgs e)
+		{
+			updateForm = new update(pathToFile, updateRequired, totalBytes, this, isModInstalled, info, false, false);
+			updateForm.Show();
 
 		}
 
-		private void updateLauncherTB_Click(object sender, EventArgs e)
+		private void label3_Click(object sender, EventArgs e)
 		{
 
 		}
 	}
 }
+
+

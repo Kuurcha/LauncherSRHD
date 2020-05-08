@@ -83,10 +83,10 @@ namespace SRHDLauncher
 		private static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
 
 		[DllImport("user32", CharSet = CharSet.Auto)]
-		internal static extern bool PostMessage(IntPtr hWnd, uint Msg, uint WParam, uint LParam);
+		public static extern bool PostMessage(IntPtr hWnd, uint Msg, uint WParam, uint LParam);
 
 		[DllImport("user32", CharSet = CharSet.Auto)]
-		internal static extern bool ReleaseCapture();
+		public static extern bool ReleaseCapture();
 
 		[DllImport("User32.dll")]
 		public static extern int SetForegroundWindow(int hWnd);
@@ -107,7 +107,7 @@ namespace SRHDLauncher
 		{
 		}
 
-		
+
 		public void InitialiseFont()
 		{
 			string text = Path.GetTempPath() + "updaterFont.otf";
@@ -122,10 +122,11 @@ namespace SRHDLauncher
 		string propertyName,
 		object propertyValue);
 
-		
-		public update(string executePath, bool updateRequired, long totalBytes, mainform form, bool isModInstalled, string[] info,  bool reinstall, bool downloadSR1HDMode)
+
+		public update(string executePath, bool updateRequired, long totalBytes, mainform form, bool isModInstalled, string[] info, bool reinstall, bool downloadSR1HDMode)
 		{
 			//Присваивает все переменные
+			
 			bool sizeDiffers = false;
 			string[] array = null;
 			this.reinstall = reinstall;
@@ -142,8 +143,8 @@ namespace SRHDLauncher
 			progressBar.DisplayStyle = ProgressBarDisplayText.CustomTex;
 			base.Controls.Add(progressBar);
 			InitializeComponent();
-			
-		    //Добавляем некотрые кастомные события 
+
+			//Добавляем некотрые кастомные события 
 			base.MouseDown += settings_MouseDown;
 			base.MouseDown += pictureBox1_MouseDown;
 			base.MouseDown += pictureBox1_MouseDown;
@@ -178,7 +179,7 @@ namespace SRHDLauncher
 			//Запуск механизма обновления
 			updateAppPreparation();
 			
-			
+
 		}
 		public bool flagToContinue = false;
 		/// <summary>
@@ -191,11 +192,12 @@ namespace SRHDLauncher
 			{
 				return;
 			}
-			while (client.IsBusy)
+			while (client!=null && client.IsBusy)
 			{
-				if (abortEtoGreh)
+				if (form.abortEtoGreh)
 				{
 					client.CancelAsync();
+					client = null;
 				}
 				Application.DoEvents();
 			}
@@ -216,7 +218,7 @@ namespace SRHDLauncher
 			updateRequired = (reinstall || BoolConfirmation.checkIfUpdateIsRequired(form.pathToFile, "https://drive.google.com/file/d/1jDScpEkq-mybtv4SNtL-rjyE-9wM4Uos/view?usp=sharing", ref message, this, form, ref updateBytes, ref sizeDiffers, ref array));
 			if (updateRequired)
 			{
-
+				form.updateInProgress = true;
 				string path = StringProcessing.StepUp(form.pathToFile) + "\\Mods\\version.txt";
 				string path2 = StringProcessing.StepUp(form.pathToFile) + "\\Mods\\ModCFG.txt";
 				//Идет проверка, существуют ли оба файла. Если да - он считается установленным
@@ -239,7 +241,7 @@ namespace SRHDLauncher
 				//Если обновление нужно, то, в зависимости от того, установлен мод или нет качается либо патчи, либо весь архив с игрой.
 				if (updateRequired)
 				{
-					updateInProgress = true; //Переменная, которая отвечает за то, при нажатии давать ли окошко о прерывании (и прерывать ли потоки) во время обновления.
+					form.updateInProgress = true; //Переменная, которая отвечает за то, при нажатии давать ли окошко о прерывании (и прерывать ли потоки) во время обновления.
 					if (isModInstalled && !reinstall) downloadAllPatches(false);
 					else callWholeUpdate();
 					degenerateChoice.Enabled = true;
@@ -284,7 +286,7 @@ namespace SRHDLauncher
 		private void goodChoice_MouseUp(object sender, MouseEventArgs e)
 		{
 		}
-		
+
 
 		private void degenerateChoice_MouseUp(object sender, MouseEventArgs e)
 		{
@@ -309,15 +311,15 @@ namespace SRHDLauncher
 
 		public List<string> ParseCfgFile(string[] cfgFileString)
 		{
-		
-		    List<string> list = new List<string>();
+
+			List<string> list = new List<string>();
 			foreach (string text in cfgFileString)
 			{
 				string text2 = text;
 				text2 = text.Replace("CurrentMod=", "");
 				int num = 0;
 				int num2 = 0;
-				if (text2.Length>4)
+				if (text2.Length > 4)
 				{
 					for (num2 = 0; num2 < text2.Length - 1; num2++)
 					{
@@ -363,11 +365,11 @@ namespace SRHDLauncher
 		{
 		}
 
-	
+
 
 		private void OnClosing(object sender, CancelEventArgs cancelEventArgs)
 		{
-			if (updateInProgress || archiveBegun)
+			if (form.updateInProgress || form.archiveBegun)
 			{
 				string text = "видимо автор малок если это сообщение появилось. Проблема в update.OnClosing, с языком";
 				if (form.Lang == "ru")
@@ -380,19 +382,22 @@ namespace SRHDLauncher
 				}
 				switch (MessageBox.Show(text, "", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
 				{
-				case DialogResult.Yes:
-					form.changeEnabledStatusButtons();
-					abortEtoGreh = true;
-					form.updateForm = null;
-					ZipArchiveExtensions.setUpdateCancel(state: true);
-					break;
-				case DialogResult.No:
-					if (!downloadSR1HDMode)
-					{
-						form.updateRequired = true;
-					}
-					cancelEventArgs.Cancel = true;
-					break;
+					case DialogResult.Yes:
+						form.changeEnabledStatusButtons();
+						form.updateInProgress = false;
+						form.abortEtoGreh = true;
+						form.updateForm = null;
+						FileDownloader.getSetAbourt(true);
+						ZipArchiveExtensions.setUpdateCancel(mystate: true);
+						break;
+					case DialogResult.No:
+						if (!downloadSR1HDMode)
+						{
+							form.updateRequired = true;
+						}
+						cancelEventArgs.Cancel = true;
+						
+						break;
 				}
 			}
 			else if (form != null)
@@ -425,9 +430,9 @@ namespace SRHDLauncher
 			FileInfo fileInfo = DownloadFiles(executePath, tempArchivePath, SRHD1Url, callProgressBar: true, totalBytes, msg);
 			Thread.Sleep(1200);
 			temp.Value = 0;
-			if (!abortEtoGreh)
+			if (!form.abortEtoGreh)
 			{
-				archiveBegun = true;
+				form.archiveBegun = true;
 				ZipArchiveExtensions.Unpack(tempArchivePath, executePath, this, form, true);
 			}
 			else
@@ -461,7 +466,7 @@ namespace SRHDLauncher
 					}
 				}
 				File.Delete(pathToTempCfg);
-			}		
+			}
 			//Происходит самоу далние, путем сравнения двух массивов
 			string[] modFolderFileList = Directory.GetFiles(ModsFolder);
 			if (modFolderFileList.Length > 1)
@@ -479,9 +484,9 @@ namespace SRHDLauncher
 			//Вроде как необходим какой-то перерыв чтоб записаться на диск, даже после окончания работы воркера
 			Thread.Sleep(600);
 			//Если никто не отменил скачку, начинается распаковка
-			if (!abortEtoGreh)
+			if (!form.abortEtoGreh)
 			{
-				archiveBegun = true;
+				form.archiveBegun = true;
 				ZipArchiveExtensions.Unpack(tempZipFolder, SRHDFolder, this, form, false);
 				Thread.Sleep(50);
 			}
@@ -495,7 +500,7 @@ namespace SRHDLauncher
 			double num = 7.0;
 			List<string> list = new List<string>();
 			float currentVersion = 7.0f;
-			
+
 			if (!allUpdate)
 			{
 				using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SRHDLauncher.launсherHashСopy.txt"))
@@ -516,8 +521,8 @@ namespace SRHDLauncher
 				}
 				float.TryParse(ln, out currentVersion);
 			}
-			
-			
+
+
 			string[] array = list.ToArray();
 			for (int i = 1; i < info.Length - 1; i += 3)
 			{
@@ -525,7 +530,7 @@ namespace SRHDLauncher
 				{
 					float result = 0f;
 					long result2 = 1L;
-					
+
 					bool flag = float.TryParse(info[i], out result);
 					bool flag2 = long.TryParse(info[i + 2], out result2);
 					if (flag && flag2 && currentVersion < (double)result)
@@ -538,17 +543,17 @@ namespace SRHDLauncher
 						}
 
 						using (StreamWriter streamWriter = File.CreateText(path))
-							{
-								streamWriter.WriteLine(info[i]);
-							}
-						
+						{
+							streamWriter.WriteLine(info[i]);
+						}
+
 						string text = StringProcessing.StepUp(executePath) + "\\Mods\\" + info[i] + ".zip";
 						string message = "";
 						FileDownloader.DownloadFileFromURLToPath(info[i + 1], text, callProgressBar: true, this, form, result2, message);
 						ZipArchiveExtensions.Unpack(text, StringProcessing.StepUp(executePath) + "\\Mods", this, form, true);
 					}
 				}
-			
+
 			}
 			string text2 = "downloadAllPatches";
 
@@ -562,7 +567,7 @@ namespace SRHDLauncher
 			{
 				Process.Start(StringProcessing.StepUp(form.pathToFile) + "\\changeLogEng.txt");
 			}
-			MessageBox.Show(StringProcessing.getMessage(form.Lang, " Мод установлен.", "  Mod installed. "));
+			MessageBox.Show(StringProcessing.getMessage(form.Lang, " Мод установлен.", "  Mod installed. "));ZipArchiveExtensions.setUpdateCancel(mystate: true);
 		}
 
 		private void update_Shown(object sender, EventArgs e)
@@ -610,6 +615,7 @@ namespace SRHDLauncher
 
 		private void update_MouseUp(object sender, MouseEventArgs e)
 		{
+			 
 		}
 
 		protected override void Dispose(bool disposing)
@@ -709,10 +715,34 @@ namespace SRHDLauncher
             this.ResumeLayout(false);
 
 		}
+		//private void UpdateProgress(ulong current, ulong total)
+		//{
+		//	double num = double.Parse(e.BytesReceived.ToString());
+		//	double num2 = double.Parse(TotalBytesToUpdate.ToString());
+		//	double d = num / num2 * 100.0;
+		//	int num3 = (int)e.BytesReceived / 1048576;
+		//	int num4 = (int)TotalBytesToUpdate / 1048576;
+		//	if (form.Lang == "ru")
+		//	{
+		//		progressBar.CustomText = currentMessage + "   " + num3 + "МБ of " + num4 + "МБ";
+		//	}
+		//	if (form.Lang == "eng")
+		//	{
+		//		progressBar.CustomText = currentMessage + "   " + num3 + "MB of " + num4 + "MB";
+		//	}
 
+		//	progressBar.Invoke((MethodInvoker)delegate {
+		//		// Running on the UI thread
+		//		progressBar.Value = Math.Min(int.Parse(Math.Truncate(d).ToString()), 100);
+		//	});
+		//}
+		int totalBytes = 1;
+
+	
 		private void costyl_CheckedChanged(object sender, EventArgs e)
 		{
-		
+
 		}
+		
 	}
 }

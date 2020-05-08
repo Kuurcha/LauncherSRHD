@@ -18,9 +18,9 @@ namespace AlphaUtils
 
 			private Utilities PUtils;
 
-			protected internal Delegate ToMasterDel;
+			protected Delegate ToMasterDel;
 
-			protected internal AlphaPanel(AlphaRichTextBox Master)
+			public AlphaPanel(AlphaRichTextBox Master)
 			{
 				MasterTb = Master;
 				base.Size = Master.Size;
@@ -81,13 +81,13 @@ namespace AlphaUtils
 
 		private bool DrawCaret;
 
-		private RichTextInformationCollection SelectedRTInfoInternal;
+		private RichTextInformationCollection SelectedRTInfopublic;
 
-		private Color InternalAlphaBackColor;
+		private Color publicAlphaBackColor;
 
-		private Color CaretColorInternal;
+		private Color CaretColorpublic;
 
-		private int InternalAlphaAmount;
+		private int publicAlphaAmount;
 
 		private int TmpSelStart;
 
@@ -105,7 +105,7 @@ namespace AlphaUtils
 
 		private bool NewLine;
 
-		protected internal Delegate STClientDel;
+		protected Delegate STClientDel;
 
 		public override Color BackColor
 		{
@@ -123,11 +123,11 @@ namespace AlphaUtils
 		[Description("The Alpha Amount, or transparency amount, applied to the background.")]
 		[Browsable(true)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-		public int AlphaAmount
+		protected int AlphaAmount
 		{
 			get
 			{
-				return InternalAlphaAmount;
+				return publicAlphaAmount;
 			}
 			set
 			{
@@ -135,7 +135,7 @@ namespace AlphaUtils
 				{
 					throw new Exception("AlphaAmount must be between 0 and 255!");
 				}
-				InternalAlphaAmount = value;
+				publicAlphaAmount = value;
 				UpdateRegion();
 				APanel.Refresh();
 			}
@@ -145,31 +145,31 @@ namespace AlphaUtils
 		[Description("The visible background color for the AlphaTextBox.")]
 		[Browsable(true)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-		public Color AlphaBackColor
+		protected Color AlphaBackColor
 		{
 			get
 			{
-				return InternalAlphaBackColor;
+				return publicAlphaBackColor;
 			}
 			set
 			{
-				for (int i = 0; i < SelectedRTInfoInternal.Count; i++)
+				for (int i = 0; i < SelectedRTInfopublic.Count; i++)
 				{
-					if (SelectedRTInfoInternal[i].BackColorInternal.ToArgb() == InternalAlphaBackColor.ToArgb())
+					if (SelectedRTInfopublic[i].BackColorpublic.ToArgb() == publicAlphaBackColor.ToArgb())
 					{
-						SelectedRTInfoInternal[i].BackColorInternal = value;
+						SelectedRTInfopublic[i].BackColorpublic = value;
 					}
 				}
 				for (int j = 0; j < TextLength; j++)
 				{
 					Select(j, 1);
-					if (SelectionBackColor.ToArgb() == InternalAlphaBackColor.ToArgb())
+					if (SelectionBackColor.ToArgb() == publicAlphaBackColor.ToArgb())
 					{
 						SelectionBackColor = value;
 					}
 				}
 				Select(TmpSelStart, TmpSelLength);
-				InternalAlphaBackColor = value;
+				publicAlphaBackColor = value;
 				UpdateRegion();
 				APanel.Refresh();
 			}
@@ -179,13 +179,13 @@ namespace AlphaUtils
 		[Description("")]
 		[Browsable(true)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public RichTextInformationCollection SelectedRTInfo => SelectedRTInfoInternal;
+		protected RichTextInformationCollection SelectedRTInfo => SelectedRTInfopublic;
 
 		[Category("Appearance")]
 		[Description("")]
 		[Browsable(true)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public new Color SelectionBackColor
+		protected new Color SelectionBackColor
 		{
 			get
 			{
@@ -201,14 +201,14 @@ namespace AlphaUtils
 					Focus();
 				}
 				TBUtils.SetRTHighlight(value, SelectionColor);
-				for (int i = 0; i < SelectedRTInfoInternal.Count; i++)
+				for (int i = 0; i < SelectedRTInfopublic.Count; i++)
 				{
-					SelectedRTInfoInternal[i].BackColorInternal = value;
+					SelectedRTInfopublic[i].BackColorpublic = value;
 				}
 			}
 		}
 
-		public new Color SelectionColor
+		protected new Color SelectionColor
 		{
 			get
 			{
@@ -221,15 +221,15 @@ namespace AlphaUtils
 					Focus();
 				}
 				base.SelectionColor = value;
-				for (int i = 0; i < SelectedRTInfoInternal.Count; i++)
+				for (int i = 0; i < SelectedRTInfopublic.Count; i++)
 				{
-					SelectedRTInfoInternal[i].ForeColorInternal = value;
+					SelectedRTInfopublic[i].ForeColorpublic = value;
 				}
 				TBUtils.SetRTHighlight(SelectionBackColor, SelectionColor);
 			}
 		}
 
-		public new Font SelectionFont
+		protected new Font SelectionFont
 		{
 			get
 			{
@@ -241,24 +241,24 @@ namespace AlphaUtils
 				{
 					Focus();
 				}
-				for (int i = 0; i < SelectedRTInfoInternal.Count; i++)
+				for (int i = 0; i < SelectedRTInfopublic.Count; i++)
 				{
-					SelectedRTInfoInternal[i].FontInternal = value;
+					SelectedRTInfopublic[i].Fontpublic = value;
 				}
 				base.SelectionFont = value;
 				UpdateRegion();
 			}
 		}
 
-		public Color CaretColor
+		protected Color CaretColor
 		{
 			get
 			{
-				return CaretColorInternal;
+				return CaretColorpublic;
 			}
 			set
 			{
-				CaretColorInternal = value;
+				CaretColorpublic = value;
 				if (!Focused)
 				{
 					Focus();
@@ -266,7 +266,7 @@ namespace AlphaUtils
 			}
 		}
 
-		public AlphaRichTextBox()
+		protected AlphaRichTextBox()
 		{
 			InitializeComponent();
 		}
@@ -289,7 +289,7 @@ namespace AlphaUtils
 			BlinkCaretTimer.Elapsed += new System.Timers.ElapsedEventHandler(BlinkCaretTimer_Elapsed);
 			BlinkCaretTimer.AutoReset = true;
 			BlinkCaretTimer.Enabled = false;
-			SelectedRTInfoInternal = new AlphaUtils.RichTextInformationCollection();
+			SelectedRTInfopublic = new AlphaUtils.RichTextInformationCollection();
 			base.Controls.Add(APanel);
 		}
 
@@ -333,13 +333,13 @@ namespace AlphaUtils
 				DrawCaret = true;
 				BlinkCaretTimer.Start();
 			}
-			if (SelectedRTInfoInternal.Count != 0 && !Dlt)
+			if (SelectedRTInfopublic.Count != 0 && !Dlt)
 			{
 				for (int i = 0; i < TmpSelLength; i++)
 				{
 					int start = i + TmpSelStart;
 					Select(start, 1);
-					TBUtils.SetRTHighlight(SelectedRTInfoInternal[i].BackColor, SelectedRTInfoInternal[i].ForeColor);
+					TBUtils.SetRTHighlight(SelectedRTInfopublic[i].BackColor, SelectedRTInfopublic[i].ForeColor);
 				}
 				Select(selectionStart, selectionLength);
 			}
@@ -347,7 +347,7 @@ namespace AlphaUtils
 			TmpSelLength = selectionLength;
 			if (selectionLength > 0 && !Dlt)
 			{
-				SelectedRTInfoInternal.Clear();
+				SelectedRTInfopublic.Clear();
 				for (int j = 0; j < selectionLength; j++)
 				{
 					Select(j + selectionStart, 1);
@@ -356,22 +356,22 @@ namespace AlphaUtils
 					Font font = null;
 					TBUtils.GetRTHighlight(ref back, ref fore, AlphaBackColor);
 					font = SelectionFont;
-					SelectedRTInfoInternal.Add(new RichTextInformation(font, fore, back));
+					SelectedRTInfopublic.Add(new RichTextInformation(font, fore, back));
 					TBUtils.SetRTHighlight(SystemColors.Highlight, SystemColors.HighlightText);
 				}
 			}
 			else if (Dlt)
 			{
-				Color foreColor = SelectedRTInfoInternal[SelectedRTInfoInternal.Count - 1].ForeColor;
-				Color backColor = SelectedRTInfoInternal[SelectedRTInfoInternal.Count - 1].BackColor;
-				SelectedRTInfoInternal.Clear();
+				Color foreColor = SelectedRTInfopublic[SelectedRTInfopublic.Count - 1].ForeColor;
+				Color backColor = SelectedRTInfopublic[SelectedRTInfopublic.Count - 1].BackColor;
+				SelectedRTInfopublic.Clear();
 				SelectionColor = foreColor;
 				SelectionBackColor = backColor;
 				Dlt = false;
 			}
 			else
 			{
-				SelectedRTInfoInternal.Clear();
+				SelectedRTInfopublic.Clear();
 			}
 			Select(TmpSelStart, TmpSelLength);
 		}
@@ -462,12 +462,12 @@ namespace AlphaUtils
 				Graphics graphics = Graphics.FromImage(APanel.BackgroundImage);
 				if (NewLine)
 				{
-					graphics.FillRectangle((CaretColorInternal.ToArgb() == Color.Empty.ToArgb()) ? new SolidBrush(SelectionColor) : new SolidBrush(CaretColorInternal), CaretPosition.X, CaretPosition.Y, SelectionFont.SizeInPoints / 5f, SelectionFont.Height);
+					graphics.FillRectangle((CaretColorpublic.ToArgb() == Color.Empty.ToArgb()) ? new SolidBrush(SelectionColor) : new SolidBrush(CaretColorpublic), CaretPosition.X, CaretPosition.Y, SelectionFont.SizeInPoints / 5f, SelectionFont.Height);
 					graphics.Dispose();
 				}
 				else
 				{
-					graphics.FillRectangle((CaretColorInternal.ToArgb() == Color.Empty.ToArgb()) ? new SolidBrush(SelectionColor) : new SolidBrush(CaretColorInternal), CaretPosition.X, CaretPosition.Y, SelectionFont.SizeInPoints / 5f, SelectionFont.Height);
+					graphics.FillRectangle((CaretColorpublic.ToArgb() == Color.Empty.ToArgb()) ? new SolidBrush(SelectionColor) : new SolidBrush(CaretColorpublic), CaretPosition.X, CaretPosition.Y, SelectionFont.SizeInPoints / 5f, SelectionFont.Height);
 					graphics.Dispose();
 				}
 			}
@@ -499,24 +499,24 @@ namespace AlphaUtils
 			UpdateRegion();
 		}
 
-		public new void Copy()
+		protected new void Copy()
 		{
 			IntPtr lParams = (IntPtr)TBUtils.SendMessageToMaster(TBUtils.EM_SETEVENTMASK, IntPtr.Zero, IntPtr.Zero, 1);
 			TBUtils.SendMessageToMaster(TBUtils.WM_SETREDRAW, IntPtr.Zero, IntPtr.Zero, -1);
-			RichTextInformationCollection selectedRTInfoInternal = SelectedRTInfoInternal;
+			RichTextInformationCollection selectedRTInfoprotected = SelectedRTInfopublic;
 			int tmpSelStart = TmpSelStart;
 			int tmpSelLength = TmpSelLength;
 			Select(TextLength, 0);
 			WriteText();
 			Select(tmpSelStart, tmpSelLength);
 			Clipboard.SetDataObject(base.SelectedRtf, copy: true);
-			SelectedRTInfoInternal = selectedRTInfoInternal;
+			SelectedRTInfopublic = selectedRTInfoprotected;
 			WriteText();
 			TBUtils.SendMessageToMaster(TBUtils.WM_SETREDRAW, (IntPtr)1, IntPtr.Zero, -1);
 			TBUtils.SendMessageToMaster(TBUtils.EM_SETEVENTMASK, IntPtr.Zero, lParams, -1);
 		}
 
-		public new void Paste()
+		protected new void Paste()
 		{
 			IDataObject dataObject = Clipboard.GetDataObject();
 			if (dataObject.GetDataPresent(typeof(string)))
@@ -543,7 +543,7 @@ namespace AlphaUtils
 			UpdateRegion();
 		}
 
-		public new void Paste(DataFormats.Format ClipFormat)
+		protected new void Paste(DataFormats.Format ClipFormat)
 		{
 			Paste();
 		}
@@ -594,7 +594,7 @@ namespace AlphaUtils
 			if (m.Msg == TBUtils.WM_KEYDOWN)
 			{
 				int num = m.WParam.ToInt32();
-				if (num == 46 && SelectedRTInfoInternal.Count > 0)
+				if (num == 46 && SelectedRTInfopublic.Count > 0)
 				{
 					Dlt = true;
 					base.WndProc(ref m);
@@ -603,16 +603,16 @@ namespace AlphaUtils
 				int num2;
 				switch (num)
 				{
-				case 17:
-					Ctrl = true;
-					base.WndProc(ref m);
-					return;
-				case 67:
-					num2 = (Ctrl ? 1 : 0);
-					break;
-				default:
-					num2 = 0;
-					break;
+					case 17:
+						Ctrl = true;
+						base.WndProc(ref m);
+						return;
+					case 67:
+						num2 = (Ctrl ? 1 : 0);
+						break;
+					default:
+						num2 = 0;
+						break;
 				}
 				if (num2 != 0)
 				{
