@@ -567,7 +567,7 @@ namespace SRHDLauncher
 			{
 				Process.Start(StringProcessing.StepUp(form.pathToFile) + "\\changeLogEng.txt");
 			}
-			MessageBox.Show(StringProcessing.getMessage(form.Lang, " Мод установлен.", "  Mod installed. "));ZipArchiveExtensions.setUpdateCancel(mystate: true);
+			MessageBox.Show(StringProcessing.getMessage(form.Lang, " Мод установлен.", "  Mod installed. "));
 		}
 
 		private void update_Shown(object sender, EventArgs e)

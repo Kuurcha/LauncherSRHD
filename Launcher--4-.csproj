@@ -196,5 +196,11 @@
   <ItemGroup>
     <None Include="Resources\МОДНЯВАЯ ТРАПЕЦИЯ 1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ModCFGru.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ModCFGen.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -22,21 +22,21 @@ namespace Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public Resources() {
+        internal Resources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap BGGreen {
+        internal static System.Drawing.Bitmap BGGreen {
             get {
                 object obj = ResourceManager.GetObject("BGGreen", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +73,7 @@ namespace Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Disk {
+        internal static System.Drawing.Bitmap Disk {
             get {
                 object obj = ResourceManager.GetObject("Disk", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -81,9 +81,27 @@ namespace Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CurrentMod=Expansion\ExpAcryn, Expansion\ExpArts, Expansion\ExpAutoSearch, Expansion\ExpBasesAutoUpgrade, Expansion\ExpCB, Expansion\ExpCaravan, Expansion\ExpHulls, Expansion\ExpHullsBases, Expansion\ExpImplants, Expansion\ExpInfoCenter, Expansion\ExpPanel, Expansion\ExpPilotBridge, Expansion\ExpPilotBridgePlus, Expansion\ExpPlus, Expansion\ExpRepair, Expansion\ExpSSB, Expansion\ExpScienceRanks, Expansion\ExpScienceRanksPlus, Expansion\ExpSkills, Expansion\ExpSSB, Expansion\ExpTC, Expansion\ExpTick, Expansi [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ModCFGen {
+            get {
+                return ResourceManager.GetString("ModCFGen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CurrentMod=Expansion\ExpAcryn, Expansion\ExpArts, Expansion\ExpAutoSearch, Expansion\ExpBasesAutoUpgrade, Expansion\ExpCB, Expansion\ExpCaravan, Expansion\ExpHulls, Expansion\ExpHullsBases, Expansion\ExpImplants, Expansion\ExpInfoCenter, Expansion\ExpPanel, Expansion\ExpPilotBridge, Expansion\ExpPilotBridgePlus, Expansion\ExpPlus, Expansion\ExpRepair, Expansion\ExpSSB, Expansion\ExpScienceRanks, Expansion\ExpScienceRanksPlus, Expansion\ExpSkills, Expansion\ExpTC, Expansion\ExpTick, Expansion\ExpTraitors, Ev [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ModCFGru {
+            get {
+                return ResourceManager.GetString("ModCFGru", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap NewsVeryCool {
+        internal static System.Drawing.Bitmap NewsVeryCool {
             get {
                 object obj = ResourceManager.GetObject("NewsVeryCool", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -93,7 +111,7 @@ namespace Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap МОДНЯВАЯ_ТРАПЕЦИЯ {
+        internal static System.Drawing.Bitmap МОДНЯВАЯ_ТРАПЕЦИЯ {
             get {
                 object obj = ResourceManager.GetObject("МОДНЯВАЯ ТРАПЕЦИЯ", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -103,7 +121,7 @@ namespace Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap МОДНЯВАЯ_ТРАПЕЦИЯ_2 {
+        internal static System.Drawing.Bitmap МОДНЯВАЯ_ТРАПЕЦИЯ_2 {
             get {
                 object obj = ResourceManager.GetObject("МОДНЯВАЯ ТРАПЕЦИЯ 2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -113,7 +131,7 @@ namespace Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap МОДНЯВАЯ_ТРАПЕЦИЯ1 {
+        internal static System.Drawing.Bitmap МОДНЯВАЯ_ТРАПЕЦИЯ1 {
             get {
                 object obj = ResourceManager.GetObject("МОДНЯВАЯ ТРАПЕЦИЯ1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));

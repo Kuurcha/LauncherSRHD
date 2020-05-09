@@ -170,11 +170,11 @@ namespace SRHDLauncher
 						text += "\\ModCFG.txt";
 						if (mainform.Lang == "eng")
 						{
-							mainform.CopyResource("SRHDLauncher.Resources.ModCFGen.txt", text);
+							mainform.CopyResource(SRHDLauncher.Properties.Resources.ModCFGen, text);
 						}
 						if (mainform.Lang == "ru")
 						{
-							mainform.CopyResource("SRHDLauncher.Resources.ModCFGru.txt", text);
+							mainform.CopyResource(SRHDLauncher.Properties.Resources.ModCFGru, text);
 						}
 					}
 					Process.Start(mainform.pathToFile);

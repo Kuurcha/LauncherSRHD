@@ -909,7 +909,7 @@ namespace SRHDLauncher
 				text = "default ModCFG file has been successfully restored";
 				if (Directory.Exists(defaultPath + "\\Mods"))
 				{
-					File.WriteAllText(cfgFilePath, Resources.ModCFGen);
+					File.WriteAllText(cfgFilePath, SRHDLauncher.Properties.Resources.ModCFGen);
 					MessageBox.Show(text);
 				}
 			}
@@ -919,7 +919,7 @@ namespace SRHDLauncher
 				defaultSettings.Image = Resources.restoreSettingsRu;
 				if (Directory.Exists(defaultPath + "\\Mods"))
 				{
-					File.WriteAllText(cfgFilePath, Resources.ModCFGru);
+					File.WriteAllText(cfgFilePath, SRHDLauncher.Properties.Resources.ModCFGru);
 					MessageBox.Show(text);
 				}
 			}

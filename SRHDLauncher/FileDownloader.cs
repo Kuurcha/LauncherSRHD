@@ -103,7 +103,7 @@ namespace SRHDLauncher
 				return DownloadGoogleDriveFileFromURLToPath(url, path, callProgressBar);
 			}
 			return DownloadFileFromURLToPath(url, path, null, callProgressBar);
-		}
+		 }
 
 		public static async Task WaitUntil(Func<bool> condition, int frequency = 25, int timeout = -1)
 		{
@@ -204,15 +204,9 @@ namespace SRHDLauncher
 				{
 					currentUpdateForm.progressBar.CustomText = currentMessage + "   " + num3 + "MB of " + num4 + "MB";
 				}
-				if(currentUpdateForm.IsHandleCreated)
-				{
-					currentUpdateForm.progressBar.Invoke((MethodInvoker)delegate
-					{
 
-
-						currentUpdateForm.progressBar.Value = Math.Min(int.Parse(Math.Truncate(d).ToString()), 100);
-					});
-				}
+				currentUpdateForm.progressBar.Value = Math.Min(int.Parse(Math.Truncate(d).ToString()), 100);
+			
 
 			}
 

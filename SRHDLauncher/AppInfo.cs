@@ -7,7 +7,7 @@ namespace SRHDLauncher
 
 		public const string ENG_CHANGELOG = "https://drive.google.com/file/d/1Z91zQLaUgWMbudO4m8ucQ0DFzeRA2fXW/view?usp=sharing";
 
-		public const string LAUNCHER_VERSION = "0.86";
+		public const string LAUNCHER_VERSION = "0.871";
 
 		public const string APP_ZIP_FILE_LINK = "https://drive.google.com/file/d/19jdjTzT_usxbTvb8EFvw00xKknC_1KE5/view?usp=sharing";
 
@@ -58,15 +58,15 @@ namespace SRHDLauncher
 
 		public static string[] laucnherUpdateLogEng =
 		{
-			"Hotfix patch dated 8.05.2020 is avaliable for download",
-			"Some bug fixes",
+			"Hotfix patch dated 09.05.2020 is avaliable for download",
+			"Added update recomended modCfg due to ShuPirates",
 			"Updated localization files"
 		};
 
 		public static string[] laucnherUpdateLogRu =
 		{
-			"Хотфикс от 08.05.2020 доступен для скачки",
-			"Некотрые исправления ошибок",
+			"Хотфикс от 09.05.2020 доступен для скачки",
+			"обновлен рекомендуемый modCfg из-за ShuPirates",
 			"Updated localization files",
 
 		};
