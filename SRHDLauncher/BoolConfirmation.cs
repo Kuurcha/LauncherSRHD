@@ -210,7 +210,7 @@ namespace SRHDLauncher
 						return true;
 					}
 					//Цикл парсящий каждую третью строку, проверяющий, есть ли хоть одно обновление, выше версией нежели в versions.txt
-					for (int i = 1; i < updatesArray.Length - 1; i += 3)
+					for (int i = 1; i < updatesArray.Length - 1; i += 5)
 					{
 						double num2 = double.Parse(updatesArray[i]);
 						flag = !(result2 >= num2);
@@ -232,13 +232,13 @@ namespace SRHDLauncher
 			return result;
 		}
 
-		public static bool checkIfUpdateIsRequired(string path, string URI, string version, update updateForm, mainform mainMenuForm, ref long totalBytes)
+		public static bool checkIfUpdateIsRequired(string path, string URI, string URIMirror, string version, update updateForm, mainform mainMenuForm, ref long totalBytes)
 		{
 			bool result = false;
 			string path2 = path + "\\tempIni.ini";
 			try
 			{
-				FileInfo fileInfo = FileDownloader.DownloadFileFromURLToPath(URI, path2, callProgressBar: false, updateForm, mainMenuForm, "");
+				FileInfo fileInfo = FileDownloader.DownloadFileFromURLToPath(URI, URIMirror, path2, callProgressBar: false, updateForm, mainMenuForm, "");
 				if (fileInfo != null)
 				{
 					string[] array = File.ReadAllLines(path2);
@@ -254,14 +254,14 @@ namespace SRHDLauncher
 			return result;
 		}
 
-		public static bool checkIfUpdateIsRequired(string path, string URI, string version, update updateForm, mainform mainMenuForm, ref long total, ref string[] text)
+		public static bool checkIfUpdateIsRequired(string path, string URI, string URImirror, string version, update updateForm, mainform mainMenuForm, ref long total, ref string[] text)
 		{
 			bool result = false;
 			string path2 = path + "\\tempIni.ini";
 			try
 			{
 				string[] array = File.ReadAllLines(path2);
-				FileInfo fileInfo = FileDownloader.DownloadFileFromURLToPath(URI, path2, callProgressBar: false, updateForm, mainMenuForm, "");
+				FileInfo fileInfo = FileDownloader.DownloadFileFromURLToPath(URI, URImirror, path2, callProgressBar: false, updateForm, mainMenuForm, "");
 				string a = null;
 				if (fileInfo != null)
 				{

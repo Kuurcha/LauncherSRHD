@@ -22,6 +22,8 @@ namespace SRHDLauncher
         //	Scope.DriveMetadata
         //};
 
+        
+
         private static string ApplicationName = "Drive API .NET Quickstart";
 
         private static string GenerateHashString(string text)

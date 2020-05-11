@@ -1078,7 +1078,7 @@ namespace SRHDLauncher
 			{
 				long totalBytesToUpdate = 1L;
 				string text2 = appPath + "\\tempLauncher.exe";
-				FileInfo fileInfo = FileDownloader.DownloadFileFromURLToPath("https://drive.google.com/file/d/15s5SHvq_zcMFm9auz6tteTYFPmbqQu4Q/view?usp=sharing", text2, callProgressBar: false, null, this, totalBytesToUpdate, "Скачивание мода :");
+				FileInfo fileInfo = FileDownloader.DownloadFileFromURLToPath(AppInfo.LAUCNHER_ZIP_FILE_LINK, AppInfo.LAUNCHER_ZIP_FILE_LINK_MIRROR, text2, callProgressBar: false, null, this, totalBytesToUpdate, "Скачивание мода :");
 				if (fileInfo != null)
 				{
 					string path = Path.GetTempPath() + "updateTest.txt";
@@ -1087,7 +1087,7 @@ namespace SRHDLauncher
 					ProcessStartInfo processStartInfo = new ProcessStartInfo("cmd", "cd c:");
 					string text3 = appPath;
 					processStartInfo.Arguments = string.Format(format, executePath, text2, "Launcher.exe", appPath, executePath, "");
-					processStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+					processStartInfo.WindowStyle = ProcessWindowStyle.Normal;
 					processStartInfo.WorkingDirectory = appPath;
 					processStartInfo.FileName = "cmd.exe";
 					Process.Start(processStartInfo);
@@ -1127,7 +1127,7 @@ namespace SRHDLauncher
 					setEng();
 				}
 				long num = 1L;
-				launcherIsOutdated = BoolConfirmation.checkIfUpdateIsRequired(appPath, "https://drive.google.com/file/d/1vwfyczFB_riZO5oEVMelDmtNRapriFBi/view?usp=sharing", "" + AppInfo.LAUNCHER_VERSION, null, this, ref totalBytes);
+				launcherIsOutdated = BoolConfirmation.checkIfUpdateIsRequired(appPath, AppInfo.LAUCNHER_INI_LINK, AppInfo.LAUNCHER_INI_LINK_FILE_MIRROR, "" + AppInfo.LAUNCHER_VERSION, null, this, ref totalBytes);
 				if (launcherIsOutdated)
 				{
 					checkUpdates.Enabled = true;

@@ -71,38 +71,85 @@ namespace SRHDLauncher
 			}
 		}
 
-		public static FileInfo DownloadFileFromURLToPath(string url, string path, bool callProgressBar, update updateForm, mainform mainMenuForm, string message)
+		public static FileInfo DownloadFileFromURLToPath(string url,  string urlMirror, string path, bool callProgressBar, update updateForm, mainform mainMenuForm, string message)
 		{
+			FileInfo fileInfo = null;
 			try
 			{
 				currentMessage = message;
 				currentUpdateForm = updateForm;
 				currentMainMenuForm = mainMenuForm;
-				if (url.StartsWith("drive.google.com") || url.StartsWith("https://drive.google.com"))
+				currentUpdateForm = updateForm;
+				fileInfo = downloadUrl(url, path, callProgressBar);
+				if (fileInfo.Length < 100256)
 				{
-					return DownloadGoogleDriveFileFromURLToPath(url, path, callProgressBar);
+					fileInfo = downloadUrl(urlMirror, path, callProgressBar);
 				}
-				return DownloadFileFromURLToPath(url, path, null, callProgressBar);
+				return fileInfo;
 			}
 			catch (Exception ex)
 			{
-				mainMenuForm.internetIsAbsent = true;
-				MessageBox.Show(ex.ToString());
-				return null;
+				try
+				{
+					fileInfo = downloadUrl(urlMirror, path, callProgressBar);
+				}
+				catch (Exception ex1) { }
+				{
+					mainMenuForm.internetIsAbsent = true;
+					MessageBox.Show(ex.ToString());
+				}			
 			}
+			return fileInfo;
 		}
 
-		public static FileInfo DownloadFileFromURLToPath(string url, string path, bool callProgressBar, update updateForm, mainform mainMenuForm, long totalBytesToUpdate, string message)
+		public static FileInfo downloadUrl(string url, string path, bool callProgressBar)
+		{
+			FileInfo fileInfo = null;
+			if (url.StartsWith("drive.google.com") || url.StartsWith("https://drive.google.com"))
+			{ 
+
+				fileInfo = DownloadGoogleDriveFileFromURLToPath(url, path, callProgressBar);
+			}
+			fileInfo = DownloadFileFromURLToPath(url, path, null, callProgressBar);
+			return fileInfo;
+		}
+
+		
+		public static FileInfo DownloadFileFromURLToPath(string url, string urlMirror, string path, bool callProgressBar, update updateForm, mainform mainMenuForm, long totalBytesToUpdate, string message)
 		{
 			TotalBytesToUpdate = totalBytesToUpdate;
 			currentUpdateForm = updateForm;
 			currentMainMenuForm = mainMenuForm;
-			currentMessage = message;
-			if (url.StartsWith("drive.google.com") || url.StartsWith("https://drive.google.com"))
+			 currentMessage = message;
+			FileInfo fileInfo = null;
+
+
+			try
 			{
-				return DownloadGoogleDriveFileFromURLToPath(url, path, callProgressBar);
+				fileInfo = downloadUrl(url, path, callProgressBar);
+				if (fileInfo.Length < 500256)
+				{
+					string text = File.ReadAllText(path);
+					string substring = text.Substring(0, 34);
+					if (substring == "<!DOCTYPE html><html><head><title>")
+					{
+						fileInfo = downloadUrl(urlMirror, path, callProgressBar);
+					}
+				}
 			}
-			return DownloadFileFromURLToPath(url, path, null, callProgressBar);
+			catch
+			{
+				try
+				{
+					fileInfo = downloadUrl(urlMirror, path, callProgressBar);
+				}
+				catch (Exception Ex)
+				{
+
+				}
+			}
+			
+			return fileInfo;
 		 }
 
 		public static async Task WaitUntil(Func<bool> condition, int frequency = 25, int timeout = -1)
@@ -204,9 +251,14 @@ namespace SRHDLauncher
 				{
 					currentUpdateForm.progressBar.CustomText = currentMessage + "   " + num3 + "MB of " + num4 + "MB";
 				}
+				try
+				{
+					currentUpdateForm.progressBar.Value = Math.Min(int.Parse(Math.Truncate(d).ToString()), 100);
+				}
+				catch (Exception Ex) { }
+				//System.InvalidOperationException:
 
-				currentUpdateForm.progressBar.Value = Math.Min(int.Parse(Math.Truncate(d).ToString()), 100);
-			
+
 
 			}
 

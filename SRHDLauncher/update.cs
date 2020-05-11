@@ -91,10 +91,10 @@ namespace SRHDLauncher
 		[DllImport("User32.dll")]
 		public static extern int SetForegroundWindow(int hWnd);
 
-		public FileInfo DownloadFiles(string extractPath, string tempPath, string googleDownloadPath, bool callProgressBar, long totalBytes, string msg)
+		public FileInfo DownloadFiles(string extractPath, string tempPath, string googleDownloadPath, string googleDownloadPathMirror, bool callProgressBar, long totalBytes, string msg)
 		{
 			string[] files = Directory.GetFiles(extractPath);
-			FileInfo result = FileDownloader.DownloadFileFromURLToPath(googleDownloadPath, tempPath, callProgressBar, this, form, totalBytes, msg);
+			FileInfo result = FileDownloader.DownloadFileFromURLToPath(googleDownloadPath, googleDownloadPathMirror, tempPath, callProgressBar, this, form, totalBytes, msg);
 			Thread.Sleep(50);
 			return result;
 		}
@@ -427,9 +427,11 @@ namespace SRHDLauncher
 				msg = "Downloading files: ";
 			}
 			string tempArchivePath = executePath + "\\Temp.zip";
-			FileInfo fileInfo = DownloadFiles(executePath, tempArchivePath, SRHD1Url, callProgressBar: true, totalBytes, msg);
+			FileInfo fileInfo = DownloadFiles(executePath, tempArchivePath, SRHD1Url, SRHD1Url, callProgressBar: true, totalBytes, msg);
 			Thread.Sleep(1200);
 			temp.Value = 0;
+			
+			
 			if (!form.abortEtoGreh)
 			{
 				form.archiveBegun = true;
@@ -454,7 +456,7 @@ namespace SRHDLauncher
 			if (File.Exists(pathToModCfg))
 			{
 				//Скачка Cfg файла приложения со списком модов
-				FileDownloader.DownloadFileFromURLToPath(AppInfo.APP_CFG_LINK_FILE, pathToTempCfg, callProgressBar: false, this, null, 1L, "");
+				FileDownloader.DownloadFileFromURLToPath(AppInfo.APP_CFG_LINK_FILE, AppInfo.APP_CFG_LINK_FILE, pathToTempCfg, callProgressBar: false, this, null, 1L, "");
 				List<string> localModCfg = ParseCfgFile(File.ReadAllLines(pathToModCfg)); //Локальный ModCfg.txt
 				List<string> driveModCfg = ParseCfgFile(File.ReadAllLines(pathToTempCfg)); //ModCfg.txt с Диска
 				foreach (string item in localModCfg)
@@ -480,7 +482,7 @@ namespace SRHDLauncher
 			//Блок ниже скачивает сам архив с модом диска
 			string tempZipFolder = SRHDFolder + "\\Temp.zip";
 			string msg = StringProcessing.getMessage(form.Lang, "Скачивание файлов: ", "Downloading files: ");
-			DownloadFiles(SRHDFolder, SRHDFolder + "\\Temp.zip", AppInfo.APP_ZIP_FILE_LINK, callProgressBar: true, form.totalBytes, msg);
+			DownloadFiles(SRHDFolder, SRHDFolder + "\\Temp.zip", AppInfo.APP_ZIP_FILE_LINK, AppInfo.APP_ZIP_FILE_LINK_MIRROR, callProgressBar: true, form.totalBytes, msg);
 			//Вроде как необходим какой-то перерыв чтоб записаться на диск, даже после окончания работы воркера
 			Thread.Sleep(600);
 			//Если никто не отменил скачку, начинается распаковка
@@ -524,10 +526,12 @@ namespace SRHDLauncher
 
 
 			string[] array = list.ToArray();
-			for (int i = 1; i < info.Length - 1; i += 3)
+			for (int i = 1; i < info.Length - 1; i += 5)
 			{
 				if (list != null)
 				{
+					bool unpackToSave = false;
+					if (info[i+2][0] == '1') { unpackToSave = true; }
 					float result = 0f;
 					long result2 = 1L;
 
@@ -549,16 +553,31 @@ namespace SRHDLauncher
 
 						string text = StringProcessing.StepUp(executePath) + "\\Mods\\" + info[i] + ".zip";
 						string message = "";
-						FileDownloader.DownloadFileFromURLToPath(info[i + 1], text, callProgressBar: true, this, form, result2, message);
-						ZipArchiveExtensions.Unpack(text, StringProcessing.StepUp(executePath) + "\\Mods", this, form, true);
+						FileDownloader.DownloadFileFromURLToPath(info[i + 1], info[i + 1], text, callProgressBar: true, this, form, result2, message);
+						string pathRegular = StringProcessing.StepUp(executePath) + "\\Mods";
+				
+						if (unpackToSave && info[i+3] == form.Lang)
+						{
+							string pathForSaves = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\spacerangershd\\save" ;
+							ZipArchiveExtensions.Unpack(text, pathForSaves, this, form, true);
+						}
+						else
+						{
+							if(!unpackToSave)
+							{
+								ZipArchiveExtensions.Unpack(text, pathRegular, this, form, true);
+							}
+							
+						}
+				
 					}
 				}
 
 			}
 			string text2 = "downloadAllPatches";
 
-			FileDownloader.DownloadFileFromURLToPath("https://drive.google.com/file/d/1xkFP-LnD6pa2SWfY55b1y3vSFpeUf2mm/view?usp=sharing", StringProcessing.StepUp(form.pathToFile) + "\\changeLogRu.txt", callProgressBar: false, this, form, "");
-			FileDownloader.DownloadFileFromURLToPath("https://drive.google.com/file/d/1Z91zQLaUgWMbudO4m8ucQ0DFzeRA2fXW/view?usp=sharing", StringProcessing.StepUp(form.pathToFile) + "\\changeLogEng.txt", callProgressBar: false, this, form, "");
+			FileDownloader.DownloadFileFromURLToPath(AppInfo.RU_CHANGLEOG, AppInfo.RU_CHANGELOG_MIRROR, StringProcessing.StepUp(form.pathToFile) + "\\changeLogRu.txt", callProgressBar: false, this, form, "");
+			FileDownloader.DownloadFileFromURLToPath(AppInfo.ENG_CHANGELOG, AppInfo.ENG_CHANGELOG_MIRROR, StringProcessing.StepUp(form.pathToFile) + "\\changeLogEng.txt", callProgressBar: false, this, form, "");
 			if (form.Lang == "ru")
 			{
 				Process.Start(StringProcessing.StepUp(form.pathToFile) + "\\changeLogRu.txt");
@@ -567,7 +586,6 @@ namespace SRHDLauncher
 			{
 				Process.Start(StringProcessing.StepUp(form.pathToFile) + "\\changeLogEng.txt");
 			}
-			MessageBox.Show(StringProcessing.getMessage(form.Lang, " Мод установлен.", "  Mod installed. "));
 		}
 
 		private void update_Shown(object sender, EventArgs e)
